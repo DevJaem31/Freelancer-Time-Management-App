@@ -23,7 +23,7 @@ app.use(
 	cors({
 		origin:
 			process.env.NODE_ENV === 'production'
-				? 'https://yourproductiondomain.com'
+				? 'https://freelancer-time-management-app.vercel.app/'
 				: 'http://localhost:5173',
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
 		allowedHeaders: ['Content-Type', 'Authorization'],

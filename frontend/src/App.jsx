@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import MainRoutes from './routes/main-routes';
 import { Toaster } from 'react-hot-toast';
-import { apiUrl } from './services/user-services';
+import { logTheURL } from './services/user-services';
 
 function App() {
 	useEffect(() => {
-		apiUrl();
+		logTheURL();
 	}, []);
 
 	return (

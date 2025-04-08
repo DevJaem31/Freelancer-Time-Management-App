@@ -5,6 +5,7 @@ const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const http = require('http');
+const userRoutes = require('./routes/user-routes');
 
 if (process.env.NODE_ENV === 'production') {
 	dotenv.config({ path: '.env.production' });
@@ -47,6 +48,8 @@ app.use(
 		},
 	}),
 );
+
+app.use('/', userRoutes);
 
 mongoose
 	.connect(process.env.MONGO_URI)

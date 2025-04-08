@@ -1,0 +1,50 @@
+.hero-background-image {
+	animation: fadeIn 3s ease-in-out;
+}
+
+.hero-header-text {
+	animation: fadeUp 2s ease-in-out;
+	animation-fill-mode: forwards;
+}
+
+.hero-sub-text,
+.learn-more-button {
+	animation: fadeUp 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0.3;
+	}
+}
+
+@keyframes fadeUp {
+	0% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@media (max-width: 768px) {
+	.hero-header-text {
+		font-size: 2rem;
+	}
+	.hero-sub-text {
+		font-size: 1rem;
+	}
+	.hero-button-container {
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+	.learn-more-button {
+		font-size: 0.8rem;
+		padding-block: 0.5rem;
+	}
+}

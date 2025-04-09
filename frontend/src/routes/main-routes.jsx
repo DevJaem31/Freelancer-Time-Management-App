@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 
+import TermsOfServicePage from '../pages/additional-pages/terms-of-service-page.jsx';
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 
 function MainRoutes() {
@@ -11,7 +12,10 @@ function MainRoutes() {
 					path='/'
 					element={<LandingPage />}
 				/>
-				<Route path='/login' />
+				<Route
+					path='/terms-of-service'
+					element={<TermsOfServicePage />}
+				/>
 			</Routes>
 		</div>
 	);

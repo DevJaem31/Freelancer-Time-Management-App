@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function FooterComponent() {
+	const navigate = useNavigate();
+
+	const handleNavigation = (path) => {
+		navigate(path);
+	};
+
 	return (
 		<div className='footer-component'>
 			<div className='footer-component-content'>
@@ -16,12 +23,12 @@ function FooterComponent() {
 					>
 						Privacy Policy
 					</a>
-					<a
-						href='#'
+					<button
+						onClick={() => handleNavigation('/terms-of-service')}
 						className='text-[var(--text-accent-color)] hover:text-[var(--text-color)] transition-all duration-250 ease-in-out text-xs md:text-xs lg:text-base'
 					>
 						Terms of Service
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>

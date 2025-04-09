@@ -5,7 +5,7 @@ import {
 	taskManagement,
 	timeBlocking,
 	timeTracker,
-} from '../assets/icons/icons';
+} from '../../assets/icons/icons';
 
 const features = [
 	{

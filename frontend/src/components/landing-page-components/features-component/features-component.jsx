@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import './features-component.css';
 import FeaturesCard from '../../reusable-components/features-card';
 import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
-import { features } from '../../../utils/features';
+import { features } from '../../../utils/data/features';
 
 function FeaturesComponent() {
 	const containerRef = useRef(null);

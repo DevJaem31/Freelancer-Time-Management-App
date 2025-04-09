@@ -1,6 +1,6 @@
 import React from 'react';
 import './hero-component.css';
-import { background } from '../../assets/images/images.jsx';
+import { background } from '../../../assets/images/images.jsx';
 
 function HeroComponent() {
 	return (

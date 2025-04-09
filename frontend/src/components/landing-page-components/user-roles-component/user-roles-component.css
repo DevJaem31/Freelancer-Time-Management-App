@@ -9,6 +9,10 @@
 	transform: rotateY(0);
 }
 
+.roles-item:nth-child(2) {
+	transition-delay: 1s;
+}
+
 @keyframes flipIn3D {
 	0% {
 		transform: rotateY(90deg);

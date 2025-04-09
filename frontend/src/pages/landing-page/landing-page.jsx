@@ -1,8 +1,9 @@
 import React from 'react';
 import './landing-page.css';
 
-import UserRolesComponent from '../../components/user-roles-component/user-roles-component.jsx';
-import HeroComponent from '../../components/hero-component/hero-component.jsx';
+import UserRolesComponent from '../../components/landing-page-components/user-roles-component/user-roles-component.jsx';
+import FeaturesComponent from '../../components/landing-page-components/features-component/features-component.jsx';
+import HeroComponent from '../../components/landing-page-components/hero-component/hero-component.jsx';
 
 function LandingPage() {
 	return (
@@ -12,11 +13,15 @@ function LandingPage() {
 			</div>
 
 			<section
-				className='landing-page-section h-fit m-auto w-[80%] flex flex-col justify-center items-center'
+				className='landing-page-section h-fit flex flex-col justify-center items-center'
 				id='learn-more-section'
 			>
-				<div className='user-roles-landing-container'>
+				<div className='user-roles-landing-container '>
 					<UserRolesComponent />
+				</div>
+
+				<div className='features-landing-container w-[100%]'>
+					<FeaturesComponent />
 				</div>
 			</section>
 		</div>

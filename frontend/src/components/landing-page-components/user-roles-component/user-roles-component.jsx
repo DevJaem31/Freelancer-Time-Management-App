@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './user-roles-component.css';
-import { company, freelancer } from '../../assets/icons/icons';
-import useIntersectionObserver from '../../utils/useIntersectionObserver';
+import { company, freelancer } from '../../../assets/icons/icons';
+import useIntersectionObserver from '../../../utils/useIntersectionObserver';
 
 function UserRolesComponent() {
 	// Refs for the container and role items
@@ -15,7 +15,7 @@ function UserRolesComponent() {
 	return (
 		<div
 			ref={containerRef}
-			className='user-roles-component-container flex flex-col justify-center items-center mb-20 mx-auto'
+			className='user-roles-component-container flex flex-col justify-center items-center mb-20 mx-auto w-[90%]'
 		>
 			<header className='user-roles-component-header flex flex-col justify-center items-center mb-12'>
 				<h1 className='user-role-header-text text-2xl md:text-4xl text-white font-extrabold mb-4 mt-4 tracking-wide'>
@@ -36,7 +36,7 @@ function UserRolesComponent() {
 						className='role-icon h-[64px] mb-3'
 					/>
 					<h2 className='role-title mb-4 font-bold tracking-wider text-xl md:text-2xl'>Client</h2>
-					<p className='role-description text-center text-[var(--text-accent-color)] text-sm md:text-base'>
+					<p className='role-description text-center text-[var(--text-accent-color)] text-xs md:text-sm'>
 						Limited access to view invoices and project timelines.
 					</p>
 				</div>
@@ -55,7 +55,7 @@ function UserRolesComponent() {
 					<h2 className='role-title mb-4 font-bold tracking-wider text-xl md:text-2xl'>
 						Freelancer
 					</h2>
-					<p className='role-description text-center text-[var(--text-accent-color)] text-sm md:text-base'>
+					<p className='role-description text-center text-[var(--text-accent-color)] text-xs md:text-sm'>
 						Full access to all features including task management, time tracking, invoicing, and
 						more.
 					</p>

@@ -6,6 +6,7 @@ function TermsOfServicePage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		document.title = 'Terms of Service | FreelanceFlow';
 		window.scrollTo(0, 0);
 	}, []);
 

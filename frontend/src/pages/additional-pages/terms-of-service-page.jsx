@@ -49,7 +49,7 @@ function TermsOfServicePage() {
 			</Helmet>
 
 			<button
-				onClick={() => navigate(-1)}
+				onClick={() => navigate('/')}
 				className='text-sm md:text-base mb-10 text-[var(--text-accent-color)] hover:text-[var(--text-color)] transition-all duration-200'
 			>
 				← Back

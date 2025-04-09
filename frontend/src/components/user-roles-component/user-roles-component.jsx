@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './user-roles-component.css';
 import { company, freelancer } from '../../assets/icons/icons';
+import useIntersectionObserver from '../../utils/useIntersectionObserver';
 
 function UserRolesComponent() {
+	// Refs for the container and role items
+	const containerRef = useRef(null);
+	const roleRef1 = useRef(null);
+	const roleRef2 = useRef(null);
+
+	// Use the custom hook to track visibility of the container
+	const isVisible = useIntersectionObserver(containerRef);
+
 	return (
-		<div className='user-roles-component-container flex flex-col justify-center items-center mb-20 mx-auto'>
+		<div
+			ref={containerRef}
+			className='user-roles-component-container flex flex-col justify-center items-center mb-20 mx-auto'
+		>
 			<header className='user-roles-component-header flex flex-col justify-center items-center mb-12'>
 				<h1 className='user-role-header-text text-2xl md:text-4xl text-white font-extrabold mb-4 mt-4 tracking-wide'>
 					User Roles
@@ -12,7 +24,12 @@ function UserRolesComponent() {
 			</header>
 
 			<div className='roles-container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full justify-center items-center px-4 md:px-0'>
-				<div className='roles-item flex flex-col w-full max-w-md justify-center items-center bg-[var(--card-accent-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105'>
+				<div
+					ref={roleRef1}
+					className={`roles-item flex flex-col w-full max-w-md justify-center items-center bg-[var(--card-accent-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105 ${
+						isVisible ? 'flip-in' : ''
+					}`}
+				>
 					<img
 						src={company}
 						alt='Client'
@@ -24,7 +41,12 @@ function UserRolesComponent() {
 					</p>
 				</div>
 
-				<div className='roles-item flex flex-col w-full max-w-md justify-center items-center bg-[var(--card-accent-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105'>
+				<div
+					ref={roleRef2}
+					className={`roles-item flex flex-col w-full max-w-md justify-center items-center bg-[var(--card-accent-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105 ${
+						isVisible ? 'flip-in' : ''
+					}`}
+				>
 					<img
 						src={freelancer}
 						alt='Freelancer'

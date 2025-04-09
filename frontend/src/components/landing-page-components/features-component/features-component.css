@@ -1,0 +1,19 @@
+@keyframes featureFadeUp {
+	from {
+		transform: translateY(100px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.feature-card-container {
+	opacity: 0;
+	transition: transform 2s ease-in-out, opacity 1.5s ease-in-out;
+}
+
+.animate-feature-fade-up {
+	animation: featureFadeUp 1s ease-out forwards;
+}

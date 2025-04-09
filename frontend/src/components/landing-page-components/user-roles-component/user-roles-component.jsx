@@ -1,15 +1,13 @@
 import React, { useRef } from 'react';
 import './user-roles-component.css';
 import { company, freelancer } from '../../../assets/icons/icons';
-import useIntersectionObserver from '../../../utils/useIntersectionObserver';
+import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
 
 function UserRolesComponent() {
-	// Refs for the container and role items
 	const containerRef = useRef(null);
 	const roleRef1 = useRef(null);
 	const roleRef2 = useRef(null);
 
-	// Use the custom hook to track visibility of the container
 	const isVisible = useIntersectionObserver(containerRef);
 
 	return (

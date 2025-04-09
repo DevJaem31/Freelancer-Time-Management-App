@@ -1,8 +1,15 @@
 import React from 'react';
 
-function FeaturesCard({ icon, title, description }) {
+function FeaturesCard({ icon, title, description, className, animate, delay }) {
 	return (
-		<div className='feature-card-container flex flex-col justify-center items-center bg-[var(--card-background-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105'>
+		<div
+			className={`${className} feature-card-container ${
+				animate ? 'animate-feature-fade-up' : ''
+			} flex flex-col justify-center items-center bg-[var(--card-background-color)] rounded-lg p-6 md:p-8 shadow-lg transition-transform transform hover:scale-105`}
+			style={{
+				animationDelay: animate ? delay : '0s',
+			}}
+		>
 			<img
 				src={icon}
 				alt={title}

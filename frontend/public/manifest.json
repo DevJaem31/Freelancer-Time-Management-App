@@ -10,8 +10,8 @@
 	"lang": "en",
 	"icons": [
 		{
-			"src": "/icons/freelancer.png",
-			"sizes": "64x64",
+			"src": "/icons/logo-114px.png",
+			"sizes": "114x114",
 			"type": "image/png",
 			"purpose": "any"
 		}
@@ -27,7 +27,7 @@
 			"src": "/screenshots/screenshot2.png",
 			"sizes": "414x825",
 			"type": "image/png",
-			"form_factor": "mobile"
+			"form_factor": "narrow"
 		}
 	]
 }

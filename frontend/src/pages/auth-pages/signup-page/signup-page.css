@@ -1,0 +1,11 @@
+@media (max-width: 834px) {
+	.form-card-container {
+		width: 100%;
+	}
+}
+
+@media (min-width: 835px) and (max-width: 1024px) {
+	.form-card-container {
+		width: 70%;
+	}
+}

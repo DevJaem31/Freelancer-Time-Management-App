@@ -21,7 +21,7 @@ function HeroComponent() {
 				</p>
 				<div className='hero-button-container flex flex-col items-center justify-center gap-5 py-3'>
 					<a
-						href='/'
+						href='/sign-up'
 						className='learn-more-button bg-white text-purple-500 hover:bg-purple-500 w-fit hover:text-white hover:shadow-xl/10 px-6 py-3 rounded-full text-lg font-semibold transition duration-300 ease-in-out'
 					>
 						Get Started

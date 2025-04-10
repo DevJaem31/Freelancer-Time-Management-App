@@ -1,10 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
 import './cta-component.css';
 
 function CtaComponent() {
 	const containerRef = useRef(null);
+	const navigate = useNavigate();
 	const isVisible = useIntersectionObserver(containerRef);
+
+	const handleNavigation = (path) => {
+		navigate(path);
+	};
 
 	const [installPromptEvent, setInstallPromptEvent] = useState(null);
 
@@ -45,7 +51,10 @@ function CtaComponent() {
 				</p>
 
 				<div className='flex flex-col gap-5 align-center justify-center'>
-					<button className='cta-component-content-button bg-white text-base text-[var(--card-accent-color)] cursor-pointer hover:bg-gray-200 hover:shadow-lg hover:scale-105 font-semibold px-6 py-3 rounded-lg transition-all duration-300'>
+					<button
+						onClick={() => handleNavigation('/sign-up')}
+						className='cta-component-content-button bg-white text-base text-[var(--card-accent-color)] cursor-pointer hover:bg-gray-200 hover:shadow-lg hover:scale-105 font-semibold px-6 py-3 rounded-lg transition-all duration-300'
+					>
 						Get Started
 					</button>
 

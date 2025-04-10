@@ -6,6 +6,7 @@ import invoicing from './invoicing.png';
 import taskManagement from './task-management.png';
 import timeBlocking from './time-blocking.png';
 import timeTracker from './time-tracker.png';
+import googleIcon from './google.png';
 
 export {
 	company,
@@ -16,4 +17,5 @@ export {
 	taskManagement,
 	timeBlocking,
 	timeTracker,
+	googleIcon,
 };

@@ -7,6 +7,7 @@ const TermsOfServicePage = React.lazy(() =>
 const PrivacyPolicyPage = React.lazy(() =>
 	import('../pages/additional-pages/privacy-and-policy.jsx'),
 );
+const SignupPage = React.lazy(() => import('../pages/auth-pages/signup-page/signup-page.jsx'));
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 
 function MainRoutes() {
@@ -24,6 +25,10 @@ function MainRoutes() {
 				<Route
 					path='/privacy-policy'
 					element={<PrivacyPolicyPage />}
+				/>
+				<Route
+					path='/sign-up'
+					element={<SignupPage />}
 				/>
 			</Routes>
 		</div>

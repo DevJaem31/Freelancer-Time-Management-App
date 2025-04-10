@@ -17,12 +17,12 @@ function FooterComponent() {
 					</p>
 				</div>
 				<div className='footer-component-content-links flex justify-center items-center gap-4'>
-					<a
-						href='#'
+					<button
+						onClick={() => handleNavigation('/privacy-policy')}
 						className='text-[var(--text-accent-color)] hover:text-[var(--text-color)] transition-all duration-250 ease-in-out text-xs md:text-xs lg:text-base'
 					>
 						Privacy Policy
-					</a>
+					</button>
 					<button
 						onClick={() => handleNavigation('/terms-of-service')}
 						className='text-[var(--text-accent-color)] hover:text-[var(--text-color)] transition-all duration-250 ease-in-out text-xs md:text-xs lg:text-base'

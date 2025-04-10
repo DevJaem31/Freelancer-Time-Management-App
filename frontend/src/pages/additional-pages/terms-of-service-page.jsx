@@ -58,7 +58,7 @@ function TermsOfServicePage() {
 			<h1 className='text-3xl font-bold mb-4'>Terms of Service for FreelanceFlow</h1>
 
 			<p className='mb-4 text-[var(--text-accent-color)] text-sm md:text-base'>
-				Effective Date: [Insert Date]
+				Effective Date: April 10, 2025
 			</p>
 
 			<p className='mb-4 text-[var(--text-accent-color)] text-sm md:text-base'>
@@ -139,8 +139,8 @@ function TermsOfServicePage() {
 
 			<h2 className='text-xl font-semibold mb-2'>10. Governing Law</h2>
 			<p className='mb-4 text-[var(--text-accent-color)] text-sm md:text-base'>
-				These Terms are governed by the laws of [Your Country/Region]. Disputes will be handled in
-				accordance with applicable local laws.
+				These Terms are governed by the laws of Philippines. Disputes will be handled in accordance
+				with applicable local laws.
 			</p>
 		</div>
 	);

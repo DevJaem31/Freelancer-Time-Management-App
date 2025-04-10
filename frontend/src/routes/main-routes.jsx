@@ -1,7 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 
-import TermsOfServicePage from '../pages/additional-pages/terms-of-service-page.jsx';
+const TermsOfServicePage = React.lazy(() =>
+	import('../pages/additional-pages/terms-of-service-page.jsx'),
+);
+const PrivacyPolicyPage = React.lazy(() =>
+	import('../pages/additional-pages/privacy-and-policy.jsx'),
+);
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 
 function MainRoutes() {
@@ -15,6 +20,10 @@ function MainRoutes() {
 				<Route
 					path='/terms-of-service'
 					element={<TermsOfServicePage />}
+				/>
+				<Route
+					path='/privacy-policy'
+					element={<PrivacyPolicyPage />}
 				/>
 			</Routes>
 		</div>

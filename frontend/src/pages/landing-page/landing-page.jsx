@@ -8,6 +8,11 @@ import HeroComponent from '../../components/landing-page-components/hero-compone
 import FooterComponent from '../../components/landing-page-components/footer-component/footer-component.jsx';
 
 function LandingPage() {
+	React.useEffect(() => {
+		document.title = 'FreelanceFlow';
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<div className='landing-page-container scroll-smooth h-fit flex flex-col gap-10'>
 			<div className='landing-page-hero-component-container'>

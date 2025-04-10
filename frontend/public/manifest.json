@@ -10,12 +10,6 @@
 	"lang": "en",
 	"icons": [
 		{
-			"src": "/icons/logo-144px.png",
-			"sizes": "144x144",
-			"type": "image/png",
-			"purpose": "any"
-		},
-		{
 			"src": "/icons/logo-512px.png",
 			"sizes": "512x512",
 			"type": "image/png",

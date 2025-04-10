@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 function TermsOfServicePage() {
@@ -55,7 +55,7 @@ function TermsOfServicePage() {
 				← Back
 			</button>
 
-			<h1 className='text-3xl font-bold mb-4'>Terms of Service for FreelanceFlow</h1>
+			<h1 className='text-3xl font-bold mb-4 text-start'>Terms of Service for FreelanceFlow</h1>
 
 			<p className='mb-4 text-[var(--text-accent-color)] text-sm md:text-base'>
 				Effective Date: April 10, 2025

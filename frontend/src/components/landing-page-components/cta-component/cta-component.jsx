@@ -6,6 +6,31 @@ function CtaComponent() {
 	const containerRef = useRef(null);
 	const isVisible = useIntersectionObserver(containerRef);
 
+	const [installPromptEvent, setInstallPromptEvent] = useState(null);
+
+	useEffect(() => {
+		const handleBeforeInstallPrompt = (event) => {
+			event.preventDefault();
+			setInstallPromptEvent(event);
+		};
+
+		window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+		return () => {
+			window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+		};
+	}, []);
+
+	const handleInstallClick = () => {
+		if (installPromptEvent) {
+			installPromptEvent.prompt();
+			installPromptEvent.userChoice.then((choiceResult) => {
+				console.log(choiceResult.outcome);
+				setInstallPromptEvent(null);
+			});
+		}
+	};
+
 	return (
 		<div
 			className='cta-component w-full py-16 px-4 sm:px-8 md:px-16 flex justify-center items-center'
@@ -22,7 +47,14 @@ function CtaComponent() {
 					Get Started
 				</button>
 
-				<button>Install App</button>
+				{installPromptEvent && (
+					<button
+						className='cta-component-content-download bg-blue-500 text-white font-semibold px-6 py-3 mt-4 rounded-lg hover:bg-blue-600 transition-all duration-300'
+						onClick={handleInstallClick}
+					>
+						Install App
+					</button>
+				)}
 			</div>
 		</div>
 	);

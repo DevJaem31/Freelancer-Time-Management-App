@@ -156,26 +156,28 @@ function SignupPage() {
 					<div className='flex-grow border-t border-gray-300'></div>
 				</div>
 
-				<GoogleLogin
-					onSuccess={handleGoogleSuccess}
-					onError={handleGoogleError}
-					useOneTap
-					className='w-full justify-self-center self-center'
-					render={({ onClick }) => (
-						<button
-							type='button'
-							onClick={onClick}
-							className='w-full md:text-lg text-base bg-[var(--card-accent-color)] py-2 rounded-md flex items-center justify-center gap-2 hover:bg-[var(--card-background-color)] transition-all duration-200 ease-in-out cursor-pointer'
-						>
-							<img
-								src={googleIcon}
-								alt='Google'
-								className='aspect-square md:mr-5 md:h-5 h-4'
-							/>
-							<span>Continue with Google</span>
-						</button>
-					)}
-				/>
+				<div className='google-container flex justify-center items-center w-full'>
+					<GoogleLogin
+						onSuccess={handleGoogleSuccess}
+						onError={handleGoogleError}
+						useOneTap
+						className='w-full justify-self-center self-center'
+						render={({ onClick }) => (
+							<button
+								type='button'
+								onClick={onClick}
+								className='w-full md:text-lg text-base bg-[var(--card-accent-color)] py-2 rounded-md flex items-center justify-center gap-2 hover:bg-[var(--card-background-color)] transition-all duration-200 ease-in-out cursor-pointer'
+							>
+								<img
+									src={googleIcon}
+									alt='Google'
+									className='aspect-square md:mr-5 md:h-5 h-4'
+								/>
+								<span>Continue with Google</span>
+							</button>
+						)}
+					/>
+				</div>
 
 				<div className='already-has-account-container flex flex-row gap-2 justify-center items-center mt-5'>
 					<p className='already-has-account-text md:text-sm text-xs'>Already Have an Account?</p>

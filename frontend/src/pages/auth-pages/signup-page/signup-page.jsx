@@ -34,7 +34,7 @@ function SignupPage() {
 				role: 'client',
 			};
 
-			createAccount(user);
+			await createAccount(user);
 
 			toast.success('Successfully retrieved Google details!');
 		} catch (error) {
@@ -56,7 +56,8 @@ function SignupPage() {
 		}
 
 		try {
-			createAccount(userData);
+			console.log('Form data being sent:', userData);
+			await createAccount(userData);
 
 			toast.success('Account created successfully!');
 		} catch (error) {

@@ -23,7 +23,7 @@ app.use(
 	cors({
 		origin:
 			process.env.NODE_ENV === 'production'
-				? 'https://freelancer-time-management-app.vercel.app/'
+				? 'https://freelancer-time-management-app.vercel.app'
 				: 'http://localhost:5173',
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
 		allowedHeaders: ['Content-Type', 'Authorization'],
@@ -57,5 +57,5 @@ mongoose
 	.catch((err) => console.log('Failed to Connect!', err));
 
 server.listen(5000, () => {
-	console.log('Server is running on port 3000');
+	console.log('Server is running on port 5000');
 });

@@ -6,18 +6,13 @@ const apiUrl =
 		: import.meta.env.VITE_DEVELOPMENT_API_URL;
 
 export const createAccount = async (userData) => {
-	console.log(apiUrl);
-
 	try {
-		const response = await axios.post(`${apiUrl}/create-user`, userData, {
-			headers: {
-				'Content-Type': 'application/json',
-			},
+		const response = await axios.post(`${apiUrl}create-user`, userData, {
+			withCredentials: true,
 		});
-
 		return response.data;
 	} catch (error) {
-		console.error('Error creating user:', error);
-		throw error;
+		console.error('Register error:', error);
+		throw error.response?.data || 'Registration failed';
 	}
 };

@@ -41,7 +41,6 @@ function SignupPage() {
 
 			toast.success('Successfully Logged In!');
 		} catch (error) {
-			toast.error('Failed to retrieve Google details.');
 			console.error(error);
 		}
 	};

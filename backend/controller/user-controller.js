@@ -4,7 +4,7 @@ const { generateUserId } = require('../helper/generate-userID');
 
 const createUser = async (req, res) => {
 	try {
-		const { username, email, password, confirmPassword, role, googleSignUp } = req.body;
+		const { username, email, password, fullname, confirmPassword, role, googleSignUp } = req.body;
 
 		if (!email || !username || !role) {
 			return res.status(400).json({ message: 'All fields are required' });
@@ -35,6 +35,7 @@ const createUser = async (req, res) => {
 			const newUser = new UserModel({
 				userID: userId,
 				username,
+				fullname,
 				email,
 				role,
 				password: hashedPassword,
@@ -52,6 +53,7 @@ const createUser = async (req, res) => {
 			userID: userId,
 			username,
 			email,
+			fullname,
 			role,
 			googleSignUp: true,
 			createdAt: new Date().toLocaleDateString('en-US', {

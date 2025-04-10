@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const apiUrl =
 	import.meta.env.VITE_NODE_ENV === 'production'
@@ -12,6 +13,7 @@ export const createAccount = async (userData) => {
 		});
 		return response.data;
 	} catch (error) {
+		toast.error(error.response.data.message);
 		console.error('Register error:', error);
 		throw error.response?.data || 'Registration failed';
 	}

@@ -1,16 +1,27 @@
 {
 	"name": "FreelanceFlow",
 	"short_name": "FreelanceFlow",
+	"description": "A platform to manage your freelance tasks and projects efficiently.",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#ffffff",
 	"theme_color": "#4f46e5",
 	"orientation": "portrait",
+	"lang": "en",
 	"icons": [
 		{
 			"src": "/icons/freelancer.png",
 			"sizes": "64x64",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "any"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/screenshots/screenshot1.png",
+			"sizes": "600x400",
+			"type": "image/png",
+			"form_factor": "wide"
 		}
 	]
 }

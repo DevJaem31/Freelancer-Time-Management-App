@@ -32,11 +32,12 @@ function SignupPage() {
 				fullName: decoded.name,
 				username: decoded.email.split('@')[0],
 				role: 'client',
+				googleSignUp: true,
 			};
 
 			await createAccount(user);
 
-			toast.success('Successfully retrieved Google details!');
+			toast.success('Successfully Logged In!');
 		} catch (error) {
 			toast.error('Failed to retrieve Google details.');
 			console.error(error);

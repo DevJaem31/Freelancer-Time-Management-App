@@ -14,6 +14,7 @@ const userSchema = new Schema({
 			day: 'numeric',
 		}),
 	},
+	googleSignUp: { type: Boolean, default: false },
 	username: {
 		type: String,
 		required: true,

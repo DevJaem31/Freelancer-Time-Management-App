@@ -4,9 +4,9 @@ const { generateUserId } = require('../helper/generate-userID');
 
 const createUser = async (req, res) => {
 	try {
-		const { username, email, password, confirmPassword, role } = req.body;
+		const { username, email, password, confirmPassword, role, googleSignUp } = req.body;
 
-		if (!username || !email || !password || !confirmPassword) {
+		if (!email || !username || !role) {
 			return res.status(400).json({ message: 'All fields are required' });
 		}
 
@@ -20,41 +20,49 @@ const createUser = async (req, res) => {
 			return res.status(400).json({ message: 'User already exists' });
 		}
 
-		if (username.length < 3) {
-			return res.status(400).json({ message: 'Username must be at least 3 characters long' });
-		}
-
-		if (password.length < 8) {
-			return res.status(400).json({ message: 'Password must be at least 8 characters long' });
-		}
-
-		if (password !== confirmPassword) {
-			return res.status(400).json({ message: 'Passwords do not match' });
-		}
-
-		if (password.length < 8) {
-			return res.status(400).json({ message: 'Password must be at least 6 characters long' });
-		}
-
-		const hashedPassword = await hashPassword(password);
 		const userId = await generateUserId();
+
+		if (!googleSignUp) {
+			if (!password || password !== confirmPassword) {
+				return res.status(400).json({ message: 'Passwords do not match' });
+			}
+
+			if (password.length < 8) {
+				return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+			}
+
+			const hashedPassword = await hashPassword(password);
+			const newUser = new UserModel({
+				userID: userId,
+				username,
+				email,
+				role,
+				password: hashedPassword,
+				createdAt: new Date().toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+				}),
+			});
+			await newUser.save();
+			return res.status(201).json({ message: 'User created successfully', userId: newUser._id });
+		}
 
 		const newUser = new UserModel({
 			userID: userId,
+			username,
+			email,
+			role,
+			googleSignUp: true,
 			createdAt: new Date().toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			}),
-			username,
-			email,
-			role,
-			password: hashedPassword,
 		});
-
 		await newUser.save();
 
-		res.status(201).json({ message: 'User created successfully', userId });
+		res.status(201).json({ message: 'User created successfully', userId: newUser._id });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: 'Server error during signup' });

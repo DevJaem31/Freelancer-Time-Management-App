@@ -19,9 +19,15 @@
 	"screenshots": [
 		{
 			"src": "/screenshots/screenshot1.png",
-			"sizes": "600x400",
+			"sizes": "1918x911",
 			"type": "image/png",
 			"form_factor": "wide"
+		},
+		{
+			"src": "/screenshots/screenshot2.png",
+			"sizes": "414x825",
+			"type": "image/png",
+			"form_factor": "mobile"
 		}
 	]
 }

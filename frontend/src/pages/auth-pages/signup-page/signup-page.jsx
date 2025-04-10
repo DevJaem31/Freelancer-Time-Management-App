@@ -160,6 +160,7 @@ function SignupPage() {
 					onSuccess={handleGoogleSuccess}
 					onError={handleGoogleError}
 					useOneTap
+					className='w-full justify-self-center self-center'
 					render={({ onClick }) => (
 						<button
 							type='button'

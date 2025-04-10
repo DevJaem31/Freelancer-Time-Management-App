@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
 import './cta-component.css';
 
@@ -6,6 +6,30 @@ function CtaComponent() {
 	const containerRef = useRef(null);
 	const isVisible = useIntersectionObserver(containerRef);
 
+	const [installPrompt, setInstallPrompt] = useState(null);
+
+	useEffect(() => {
+		const handleBeforeInstallPrompt = (event) => {
+			event.preventDefault();
+			setInstallPrompt(event);
+		};
+
+		window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+		return () => {
+			window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+		};
+	}, []);
+
+	const handleInstallClick = () => {
+		if (installPrompt) {
+			installPrompt.prompt();
+			installPrompt.userChoice.then((choiceResult) => {
+				console.log(choiceResult.outcome); // User choice (accepted or dismissed)
+				setInstallPrompt(null);
+			});
+		}
+	};
 	return (
 		<div
 			className='cta-component w-full py-16 px-4 sm:px-8 md:px-16 flex justify-center items-center'
@@ -22,6 +46,15 @@ function CtaComponent() {
 					Get Started
 				</button>
 			</div>
+
+			{installPrompt && (
+				<button
+					className='install-button'
+					onClick={handleInstallClick}
+				>
+					Install Web App
+				</button>
+			)}
 		</div>
 	);
 }

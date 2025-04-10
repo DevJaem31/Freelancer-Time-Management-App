@@ -6,11 +6,10 @@
 	"background_color": "#ffffff",
 	"theme_color": "#4f46e5",
 	"orientation": "portrait",
-
 	"icons": [
 		{
 			"src": "/icons/freelancer.png",
-			"sizes": "192x192",
+			"sizes": "64x64",
 			"type": "image/png"
 		}
 	]

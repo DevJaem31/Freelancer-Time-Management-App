@@ -13,7 +13,7 @@ function FooterComponent() {
 			<div className='footer-component-content'>
 				<div className='footer-component-content-text mb-2'>
 					<p className='text-center text-xs md:text-xs lg:text-base text-[var(--text-accent-color)]'>
-						© 2023 Freelancer Time Management App. All rights reserved.
+						© 2025 Freelancer Time Management App. All rights reserved.
 					</p>
 				</div>
 				<div className='footer-component-content-links flex justify-center items-center gap-4'>

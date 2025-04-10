@@ -35,6 +35,8 @@ function SignupPage() {
 				googleSignUp: true,
 			};
 
+			console.log(user);
+
 			await createAccount(user);
 
 			toast.success('Successfully Logged In!');

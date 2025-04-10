@@ -43,18 +43,21 @@ function CtaComponent() {
 				<p className='cta-component-content-text text-[var(--text-accent-color)] text-sm sm:text-base md:text-lg mb-6'>
 					Join us today and take your first step towards a brighter future.
 				</p>
-				<button className='cta-component-content-button bg-white text-base text-[var(--card-accent-color)] cursor-pointer hover:bg-gray-200 hover:shadow-lg hover:scale-105 font-semibold px-6 py-3 rounded-lg transition-all duration-300'>
-					Get Started
-				</button>
 
-				{installPromptEvent && (
-					<button
-						className='cta-component-content-download bg-blue-500 text-white font-semibold px-6 py-3 mt-4 rounded-lg hover:bg-blue-600 transition-all duration-300'
-						onClick={handleInstallClick}
-					>
-						Install App
+				<div className='flex flex-col gap-5 align-center justify-center'>
+					<button className='cta-component-content-button bg-white text-base text-[var(--card-accent-color)] cursor-pointer hover:bg-gray-200 hover:shadow-lg hover:scale-105 font-semibold px-6 py-3 rounded-lg transition-all duration-300'>
+						Get Started
 					</button>
-				)}
+
+					{installPromptEvent && (
+						<button
+							className='cta-component-content-download bg-blue-500  text-base text-[var(--card-accent-color)] text-[var(--text-color)] cursor-pointer hover:bg-blue-400 hover:shadow-lg hover:scale-105 font-semibold px-6 py-3 rounded-lg transition-all duration-300'
+							onClick={handleInstallClick}
+						>
+							Install App
+						</button>
+					)}
+				</div>
 			</div>
 		</div>
 	);

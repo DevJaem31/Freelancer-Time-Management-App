@@ -87,6 +87,9 @@ const loginUser = async (req, res) => {
 			if (!user.googleSignUp) {
 				return res.status(400).json({ message: 'Account is not registered with Google' });
 			}
+
+			req.session.user = user;
+			res.status(200).json({ message: 'Login successful', userId: user.userID });
 		} else {
 			if (!password) {
 				return res.status(400).json({ message: 'Password is required' });

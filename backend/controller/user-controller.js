@@ -20,8 +20,6 @@ const createUser = async (req, res) => {
 			return res.status(400).json({ message: 'User already exists' });
 		}
 
-		const userId = await generateUserId();
-
 		if (!googleSignUp) {
 			if (!password || password !== confirmPassword) {
 				return res.status(400).json({ message: 'Passwords do not match' });
@@ -30,7 +28,7 @@ const createUser = async (req, res) => {
 			if (password.length < 8) {
 				return res.status(400).json({ message: 'Password must be at least 8 characters long' });
 			}
-
+			const userId = await generateUserId();
 			const hashedPassword = await hashPassword(password);
 			const newUser = new UserModel({
 				userID: userId,
@@ -49,6 +47,7 @@ const createUser = async (req, res) => {
 			return res.status(201).json({ message: 'User created successfully', userId: newUser._id });
 		}
 
+		const userId = await generateUserId();
 		const newUser = new UserModel({
 			userID: userId,
 			username,

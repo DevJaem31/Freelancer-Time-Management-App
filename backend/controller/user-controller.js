@@ -72,10 +72,10 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		const { email, password, googleSignUp } = req.body;
 
-		if (!email || !password) {
-			return res.status(400).json({ message: 'All fields are required' });
+		if (!email) {
+			return res.status(400).json({ message: 'Email is required' });
 		}
 
 		const user = await UserModel.findOne({ email });
@@ -83,9 +83,18 @@ const loginUser = async (req, res) => {
 			return res.status(400).json({ message: 'Invalid credentials' });
 		}
 
-		const isMatch = await comparePassword(password, user.password);
-		if (!isMatch) {
-			return res.status(400).json({ message: 'Invalid credentials' });
+		if (googleSignUp) {
+			if (!user.googleSignUp) {
+				return res.status(400).json({ message: 'Account is not registered with Google' });
+			}
+		} else {
+			if (!password) {
+				return res.status(400).json({ message: 'Password is required' });
+			}
+			const isMatch = await comparePassword(password, user.password);
+			if (!isMatch) {
+				return res.status(400).json({ message: 'Invalid credentials' });
+			}
 		}
 
 		req.session.user = user;

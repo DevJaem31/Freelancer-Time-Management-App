@@ -18,3 +18,16 @@ export const createAccount = async (userData) => {
 		throw error.response?.data || 'Registration failed';
 	}
 };
+
+export const loginAccount = async (userData) => {
+	try {
+		const response = await axios.post(`${apiUrl}login`, userData, {
+			withCredentials: true,
+		});
+		return response.data;
+	} catch (error) {
+		toast.error(error.response?.data?.message || 'Login failed');
+		console.error('Login error:', error);
+		throw error.response?.data || 'Login failed';
+	}
+};

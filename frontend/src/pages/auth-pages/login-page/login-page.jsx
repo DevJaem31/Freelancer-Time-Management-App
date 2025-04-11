@@ -1,13 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login-page.css';
 import Logo from '/icons/logo-512px.png';
 import { useNavigate } from 'react-router-dom';
 import { googleIcon } from '../../../assets/icons/icons';
 import { GoogleLogin } from '@react-oauth/google';
 import FormComponent from '../../../components/reusable-components/form-component';
+import { loginAccount } from '../../../services/user-services';
+import { toast } from 'react-hot-toast';
 
 function LoginPage() {
 	const navigate = useNavigate();
+
+	const [formData, setFormData] = useState({ email: '', password: '' });
+
+	const handleChange = (name, value) => {
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await loginAccount({ ...formData });
+			toast.success('Login successful');
+			navigate('/dashboard');
+		} catch (error) {
+			toast.error(error?.response?.data?.message || 'Login failed');
+			console.error('Login failed:', error);
+		}
+	};
+
+	const handleGoogleSuccess = async (response) => {
+		try {
+			const decoded = JSON.parse(atob(response.credential.split('.')[1]));
+
+			const googleUser = {
+				email: decoded.email,
+				fullname: `${decoded.given_name} ${decoded.family_name}`.trim(),
+				googleSignUp: true,
+			};
+
+			await loginAccount(googleUser);
+			toast.success('Google login successful');
+			navigate('/dashboard');
+		} catch (err) {
+			console.error('Google Login failed:', err);
+			toast.error('Google login failed');
+		}
+	};
+
+	const handleGoogleError = () => {
+		toast.error('Google login error');
+	};
+
 	return (
 		<div className='login-page-container w-full h-full justify-center items-center'>
 			<div className='login-form-card bg-white/10 p-8 mx-auto my-0 md:my-15 backdrop-blur-md md:border border-white/20 md:rounded-xl shadow-lg md:p-6 w-[35%]'>
@@ -51,13 +95,15 @@ function LoginPage() {
 				</div>
 
 				<form
-					onSubmit={''}
+					onSubmit={handleSubmit}
 					className='flex flex-col items-center gap-4'
 				>
 					<FormComponent
 						type='email'
 						label='Email'
+						name='email'
 						placeholder='e.g. example.johndoe@mail.com'
+						onChange={(e) => handleChange('email', e.target.value)}
 					/>
 
 					<FormComponent
@@ -65,6 +111,7 @@ function LoginPage() {
 						label='Password'
 						placeholder='Enter password'
 						name='password'
+						onChange={(e) => handleChange('password', e.target.value)}
 					/>
 
 					<button
@@ -83,8 +130,8 @@ function LoginPage() {
 
 				<div className='google-container flex justify-center items-center w-full'>
 					<GoogleLogin
-						// onSuccess={handleGoogleSuccess}
-						// onError={handleGoogleError}
+						onSuccess={handleGoogleSuccess}
+						onError={handleGoogleError}
 						useOneTap
 						className='w-full justify-self-center self-center'
 						render={({ onClick }) => (

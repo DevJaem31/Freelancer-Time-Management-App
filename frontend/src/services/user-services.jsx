@@ -31,3 +31,24 @@ export const loginAccount = async (userData) => {
 		throw error.response?.data || 'Login failed';
 	}
 };
+
+export const checkAuth = async () => {
+	try {
+		await axios.get(`${apiUrl}check-session`, { withCredentials: true });
+		return true;
+	} catch (error) {
+		console.error('Session error:', error);
+		return false;
+	}
+};
+
+export const fetchUser = async () => {
+	try {
+		const response = await axios.get(`${apiUrl}fetch-user`, { withCredentials: true });
+
+		return response.data.user;
+	} catch (error) {
+		console.error('Fetch user error:', error);
+		throw error.response?.data || 'Failed to fetch user data';
+	}
+};

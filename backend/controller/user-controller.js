@@ -88,8 +88,11 @@ const loginUser = async (req, res) => {
 				return res.status(400).json({ message: 'Account is not registered with Google' });
 			}
 
-			req.session.user = user;
-			res.status(200).json({ message: 'Login successful', userId: user.userID });
+			req.session.user = {
+				id: user._id,
+				email: user.email,
+			};
+			return res.status(200).json({ message: 'Login successful', userId: user.userID }); // Ensure return after response
 		} else {
 			if (!password) {
 				return res.status(400).json({ message: 'Password is required' });
@@ -100,15 +103,48 @@ const loginUser = async (req, res) => {
 			}
 		}
 
-		req.session.user = user;
-		res.status(200).json({ message: 'Login successful', userId: user.userID });
+		req.session.user = {
+			id: user._id,
+			email: user.email,
+		};
+		return res.status(200).json({ message: 'Login successful', userId: user.userID });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: 'Server error during login' });
 	}
 };
 
+const checkAuth = (req, res) => {
+	if (req.session.user) {
+		res.status(200).json({ message: 'User is authenticated' });
+	} else {
+		res.status(401).json({ message: 'Not authenticated' });
+	}
+};
+
+const fetchUser = async (req, res) => {
+	if (!req.session.user) {
+		return res.status(401).json({ authenticated: false });
+	}
+
+	try {
+		const user = await UserModel.findById(req.session.user.id);
+
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		// Only respond once, after user is found
+		return res.status(200).json({ authenticated: true, user });
+	} catch (error) {
+		console.error('Error fetching user:', error);
+		return res.status(500).json({ message: 'Server error while fetching user' });
+	}
+};
+
 module.exports = {
 	createUser,
 	loginUser,
+	checkAuth,
+	fetchUser,
 };

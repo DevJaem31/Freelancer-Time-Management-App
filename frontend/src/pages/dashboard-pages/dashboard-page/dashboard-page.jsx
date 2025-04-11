@@ -81,10 +81,6 @@ const DashboardPage = () => {
 					content='website'
 				/>
 				<meta
-					property='og:url'
-					content='https://freelancer-time-management-app.vercel.app/dashboard'
-				/>
-				<meta
 					property='og:site_name'
 					content='FreelanceFlow'
 				/>

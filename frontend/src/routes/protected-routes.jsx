@@ -1,7 +1,28 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { checkSession } from '../services/authServices';
 
-function ProtectedRoutes() {
-	return <div></div>;
-}
+const PrivateRoute = () => {
+	const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-export default ProtectedRoutes;
+	useEffect(() => {
+		const verifySession = async () => {
+			const authStatus = await checkSession();
+			setIsAuthenticated(authStatus);
+		};
+		verifySession();
+	}, []);
+
+	if (isAuthenticated === null) return null;
+
+	return isAuthenticated ? (
+		<Outlet />
+	) : (
+		<Navigate
+			to='/login'
+			replace
+		/>
+	);
+};
+
+export default PrivateRoute;

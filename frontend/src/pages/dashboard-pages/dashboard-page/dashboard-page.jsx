@@ -52,6 +52,10 @@ const DashboardPage = () => {
 		<div className='md:py-6 md:px-35 px-5 py-5 w-full min-h-screen relative'>
 			<Helmet>
 				<title>Dashboard | FreelanceFlow</title>
+				<link
+					rel='canonical'
+					href='https://freelancer-time-management-app.vercel.app/dashboard'
+				/>
 				<meta
 					name='description'
 					content='Main landing page of the FreelanceFlow to navigate within the dashboard.'

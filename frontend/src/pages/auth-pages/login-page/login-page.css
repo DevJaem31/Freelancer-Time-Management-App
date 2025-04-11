@@ -1,4 +1,4 @@
-.sign-up-container {
+.login-page-container {
 	animation: fadeUp 2s ease-in-out;
 }
 
@@ -14,15 +14,16 @@
 }
 
 @media (max-width: 834px) {
-	.form-card-container {
+	.login-form-card {
 		width: 100%;
 		background-color: transparent;
 		box-shadow: none;
+		padding-top: 5rem;
 	}
 }
 
 @media (min-width: 835px) and (max-width: 1024px) {
-	.form-card-container {
+	.login-form-card {
 		width: 70%;
 	}
 }

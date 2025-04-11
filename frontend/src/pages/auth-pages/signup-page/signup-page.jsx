@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '/icons/logo-512px.png';
 import { toast } from 'react-hot-toast';
 import './signup-page.css';
@@ -16,6 +17,7 @@ function SignupPage() {
 		password: '',
 		confirmPassword: '',
 	});
+	const navigate = useNavigate();
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -35,11 +37,10 @@ function SignupPage() {
 				googleSignUp: true,
 			};
 
-			console.log(user);
-
 			await createAccount(user);
 
 			toast.success('Successfully Logged In!');
+			navigate('/login');
 		} catch (error) {
 			console.error(error);
 		}
@@ -58,10 +59,10 @@ function SignupPage() {
 		}
 
 		try {
-			console.log('Form data being sent:', userData);
 			await createAccount(userData);
 
 			toast.success('Account created successfully!');
+			navigate('/login');
 		} catch (error) {
 			toast.error('Failed to create account, please try again.');
 			throw error;
@@ -69,8 +70,37 @@ function SignupPage() {
 	};
 	return (
 		<div className='sign-up-container w-full h-full flex justify-center items-center'>
-			<div className='form-card-container bg-white/10 p-8 mx-auto my-0 md:my-15 backdrop-blur-md md:border border-white/20 md:rounded-xl shadow-lg p-6 w-[35%]'>
-				<div className='form-header-container mb-5 flex flex-col items-center gap-1 md:gap-2'>
+			<div className='form-card-container bg-white/10 p-8 mx-auto my-0 md:my-15 backdrop-blur-md md:border border-white/20 md:rounded-xl shadow-lg md:p-6 w-[35%]'>
+				<div className='form-header-container mb-5 flex flex-col items-center gap-1 md:gap-2 relative'>
+					<button
+						onClick={() => navigate('/')}
+						className='absolute top-0 left-0 p-2 cursor-pointer hover:opacity-80'
+						aria-label='Go back'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							fill='none'
+							viewBox='0 0 24 24'
+							strokeWidth={2}
+							stroke='currentColor'
+							className='w-9 h-9 text-white'
+						>
+							<circle
+								cx='12'
+								cy='12'
+								r='11'
+								stroke='currentColor'
+								strokeWidth='1'
+								fill='transparent'
+							/>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								d='M13 16l-4-4 4-4'
+							/>
+						</svg>
+					</button>
+
 					<img
 						src={Logo}
 						alt='FreelanceFlow Logo'

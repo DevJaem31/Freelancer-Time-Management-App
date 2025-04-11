@@ -7,6 +7,7 @@ const TermsOfServicePage = React.lazy(() =>
 const PrivacyPolicyPage = React.lazy(() =>
 	import('../pages/additional-pages/privacy-and-policy.jsx'),
 );
+const LoginPage = React.lazy(() => import('../pages/auth-pages/login-page/login-page.jsx'));
 const SignupPage = React.lazy(() => import('../pages/auth-pages/signup-page/signup-page.jsx'));
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 
@@ -29,6 +30,10 @@ function MainRoutes() {
 				<Route
 					path='/sign-up'
 					element={<SignupPage />}
+				/>
+				<Route
+					path='/login'
+					element={<LoginPage />}
 				/>
 			</Routes>
 		</div>

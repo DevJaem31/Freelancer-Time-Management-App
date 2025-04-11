@@ -62,7 +62,7 @@ mongoose
 cron.schedule('*/5 * * * *', () => {
 	console.log('Pinging server to keep it active...');
 	axios
-		.get('http://localhost:5000/keep-alive')
+		.get('https://freelancer-time-management-app.onrender.com/keep-alive')
 		.then((response) => {
 			console.log('Server ping successful:', response.status);
 		})

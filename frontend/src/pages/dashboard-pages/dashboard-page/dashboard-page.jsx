@@ -49,6 +49,41 @@ const DashboardPage = () => {
 
 	return (
 		<div className='md:py-6 md:px-35 px-5 py-5 w-full min-h-screen relative'>
+			<Helmet>
+				<title>Dashboard | FreelanceFlow</title>
+				<meta
+					name='description'
+					content='Main landing page of the FreelanceFlow to navigate within the dashboard.'
+				/>
+				<meta
+					name='keywords'
+					content='FreelanceFlow, Dashboard, Freelancing Platform, Task Management, Time Tracking, Budgeting, Invoicing, Productivity Tools'
+				/>
+				<meta
+					name='robots'
+					content='index, follow'
+				/>
+				<meta
+					property='og:title'
+					content='Dashboard | FreelanceFlow'
+				/>
+				<meta
+					property='og:description'
+					content='Main landing page of the FreelanceFlow to navigate within the dashboard.'
+				/>
+				<meta
+					property='og:type'
+					content='website'
+				/>
+				<meta
+					property='og:url'
+					content='https://freelancer-time-management-app.vercel.app/dashboard'
+				/>
+				<meta
+					property='og:site_name'
+					content='FreelanceFlow'
+				/>
+			</Helmet>
 			<div className='dashboard-header-container flex flex-row justify-between shadow-blue-950 mb-5 w-full h-fit'>
 				<div className='ml-2.5 greeting-text-container'>
 					<h1 className='greeting-header-text text-base md:text-lg lg:text-3xl font-semibold tracking-wider'>

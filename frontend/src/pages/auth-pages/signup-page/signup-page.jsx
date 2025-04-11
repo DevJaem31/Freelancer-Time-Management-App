@@ -29,9 +29,10 @@ function SignupPage() {
 			const googleUser = response.credential;
 
 			const decoded = JSON.parse(atob(googleUser.split('.')[1]));
+			const fullname = `${decoded.given_name} ${decoded.family_name}`.trim();
 			const user = {
 				email: decoded.email,
-				fullname: decoded.displayName,
+				fullname,
 				username: decoded.email.split('@')[0],
 				role: 'client',
 				googleSignUp: true,

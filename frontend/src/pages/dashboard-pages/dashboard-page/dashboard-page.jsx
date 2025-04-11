@@ -54,7 +54,7 @@ const DashboardPage = () => {
 				<title>Dashboard | FreelanceFlow</title>
 				<link
 					rel='canonical'
-					href='https://freelancer-time-management-app.vercel.app/dashboard'
+					href='https://freelancer-time-management-app.vercel.app/dashboard-page'
 				/>
 				<meta
 					name='description'
@@ -79,6 +79,10 @@ const DashboardPage = () => {
 				<meta
 					property='og:type'
 					content='website'
+				/>
+				<meta
+					property='og:url'
+					content='https://freelancer-time-management-app.vercel.app/dashboard'
 				/>
 				<meta
 					property='og:site_name'

@@ -14,6 +14,10 @@ function TermsOfServicePage() {
 		<div className='max-w-4xl mx-auto p-6 text-justify'>
 			<Helmet>
 				<title>Terms of Service | FreelanceFlow</title>
+				<link
+					rel='canonical'
+					href='https://freelancer-time-management-app.vercel.app/terms-service'
+				/>
 				<meta
 					name='description'
 					content='Review the Terms of Service for FreelanceFlow. Understand your rights and responsibilities as a user of our freelance productivity platform.'

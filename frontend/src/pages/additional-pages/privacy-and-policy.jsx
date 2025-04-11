@@ -14,6 +14,10 @@ function PrivacyPolicyPage() {
 		<div className='max-w-4xl mx-auto p-6 text-justify'>
 			<Helmet>
 				<title>Privacy Policy | FreelanceFlow</title>
+				<link
+					rel='canonical'
+					href='https://freelancer-time-management-app.vercel.app/privacy-policy'
+				/>
 				<meta
 					name='description'
 					content='Read the Privacy Policy of FreelanceFlow to understand how we handle your personal data, usage information, and more.'

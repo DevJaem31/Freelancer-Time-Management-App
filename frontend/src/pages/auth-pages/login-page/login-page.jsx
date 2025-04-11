@@ -49,6 +49,7 @@ function LoginPage() {
 	};
 
 	const handleGoogleError = () => {
+		window.google?.accounts?.id?.disableAutoSelect();
 		toast.error('Google login error');
 	};
 

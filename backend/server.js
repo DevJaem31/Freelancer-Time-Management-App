@@ -6,6 +6,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const http = require('http');
 const userRoutes = require('./routes/user-routes');
+const cron = require('node-cron');
+const axios = require('axios');
 
 if (process.env.NODE_ENV === 'production') {
 	dotenv.config({ path: '.env.production' });
@@ -56,6 +58,22 @@ mongoose
 	.connect(process.env.MONGO_URI)
 	.then(() => console.log('Database Connected'))
 	.catch((err) => console.log('Failed to Connect!', err));
+
+cron.schedule('*/5 * * * *', () => {
+	console.log('Pinging server to keep it active...');
+	axios
+		.get('http://localhost:5000/keep-alive')
+		.then((response) => {
+			console.log('Server ping successful:', response.status);
+		})
+		.catch((error) => {
+			console.error('Error pinging server:', error);
+		});
+});
+
+app.get('/keep-alive', (req, res) => {
+	res.status(200).send('Server is active');
+});
 
 server.listen(5000, () => {
 	console.log('Server is running on port 5000');

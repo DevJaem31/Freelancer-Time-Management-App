@@ -19,10 +19,22 @@ function MainRoutes() {
 	return (
 		<div>
 			<Routes>
-				<Route
-					path='/'
-					element={<LandingPage />}
-				/>
+				<Route element={<PublicRoute />}>
+					<Route
+						path='/'
+						element={<LandingPage />}
+					/>
+
+					<Route
+						path='/sign-up'
+						element={<SignupPage />}
+					/>
+					<Route
+						path='/login'
+						element={<LoginPage />}
+					/>
+				</Route>
+
 				<Route
 					path='/terms-of-service'
 					element={<TermsOfServicePage />}
@@ -31,14 +43,7 @@ function MainRoutes() {
 					path='/privacy-policy'
 					element={<PrivacyPolicyPage />}
 				/>
-				<Route
-					path='/sign-up'
-					element={<SignupPage />}
-				/>
-				<Route
-					path='/login'
-					element={<LoginPage />}
-				/>
+
 				<Route element={<PrivateRoute />}>
 					<Route
 						path='/dashboard'

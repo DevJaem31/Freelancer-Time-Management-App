@@ -11,7 +11,7 @@ import { createAccount } from '../../../services/user-services';
 function SignupPage() {
 	const [userData, setUserData] = useState({
 		username: '',
-		fullName: '',
+		fullname: '',
 		email: '',
 		role: 'client',
 		password: '',
@@ -31,7 +31,7 @@ function SignupPage() {
 			const decoded = JSON.parse(atob(googleUser.split('.')[1]));
 			const user = {
 				email: decoded.email,
-				fullName: decoded.displayName,
+				fullname: decoded.displayName,
 				username: decoded.email.split('@')[0],
 				role: 'client',
 				googleSignUp: true,
@@ -127,8 +127,8 @@ function SignupPage() {
 					<FormComponent
 						type='text'
 						label='Full Name'
-						name='fullName'
-						value={userData.fullName}
+						name='fullname'
+						value={userData.fullname}
 						onChange={handleInputChange}
 						placeholder='e.g. John Doe'
 					/>

@@ -14,6 +14,7 @@ const LoginPage = React.lazy(() => import('../pages/auth-pages/login-page/login-
 const SignupPage = React.lazy(() => import('../pages/auth-pages/signup-page/signup-page.jsx'));
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 import PrivateRoute from './protected-routes.jsx';
+import PublicRoute from './public-routes.jsx';
 
 function MainRoutes() {
 	return (

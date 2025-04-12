@@ -11,7 +11,7 @@ const projectSchema = new mongoose.Schema(
 		},
 		client: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
+			ref: 'Users',
 		},
 		dueDate: {
 			type: Date,
@@ -25,7 +25,7 @@ const projectSchema = new mongoose.Schema(
 		collaborators: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'User',
+				ref: 'Users',
 			},
 		],
 		status: {
@@ -35,7 +35,7 @@ const projectSchema = new mongoose.Schema(
 		},
 		createdBy: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
+			ref: 'Users',
 			required: true,
 		},
 	},

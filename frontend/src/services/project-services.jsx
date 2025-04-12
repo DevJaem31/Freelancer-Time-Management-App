@@ -18,3 +18,13 @@ export const createProject = async (formData) => {
 		throw error.response?.data || 'Project creation failed';
 	}
 };
+
+export const fetchAllProject = async () => {
+	try {
+		const response = await axios.get(`${apiUrl}fetch-all-projects`, { withCredentials: true });
+
+		return response.data.projects;
+	} catch (error) {
+		toast.error(error.response.data.message);
+	}
+};

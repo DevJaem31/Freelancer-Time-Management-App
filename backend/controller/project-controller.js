@@ -31,9 +31,9 @@ const createProject = async (req, res) => {
 const getAllProjects = async (req, res) => {
 	try {
 		const projects = await Project.find()
-			.populate('client', 'name')
-			.populate('collaborators', 'name')
-			.populate('createdBy', 'name');
+			.populate('client', 'fullname')
+			.populate('collaborators', 'fullname')
+			.populate('createdBy', 'fullname');
 
 		if (!projects || projects.length === 0) {
 			return res.status(404).json({ message: 'No projects found' });

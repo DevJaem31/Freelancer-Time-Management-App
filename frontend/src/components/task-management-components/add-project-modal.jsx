@@ -144,10 +144,10 @@ function AddProjectModal({ onClose }) {
 							value={formData.status}
 							name='status'
 							options={[
-								{ label: 'Not Started', value: 'not-started' },
-								{ label: 'In Progress', value: 'in-progress' },
-								{ label: 'Completed', value: 'completed' },
-								{ label: 'On Hold', value: 'on-hold' },
+								{ label: 'Not Started', value: 'Not Started' },
+								{ label: 'In Progress', value: 'In Progress' },
+								{ label: 'Completed', value: 'Completed' },
+								{ label: 'On Hold', value: 'On Hold' },
 							]}
 							onChange={handleInputChange}
 						/>

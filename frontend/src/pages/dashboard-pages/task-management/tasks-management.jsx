@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CircleArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { ProjectsNav } from '../../../utils/data/projects-nav';
+import { fetchAllProject } from '../../../services/project-services';
+import ProjectCard from '../../../components/task-management-components/project-card';
 
 const AddProjectModal = React.lazy(() =>
 	import('../../../components/task-management-components/add-project-modal'),
@@ -12,7 +14,8 @@ const AddProjectModal = React.lazy(() =>
 function TaskManagement() {
 	const navigate = useNavigate();
 	const [addModal, showAddModal] = useState(false);
-	const [projects, setProjects] = useState({});
+	const [projects, setProjects] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const handleAddModal = () => {
 		showAddModal(true);
@@ -30,6 +33,24 @@ function TaskManagement() {
 		handleEditModal,
 		handleConfirmationModal,
 	});
+
+	useEffect(() => {
+		const fetchProjects = async () => {
+			setLoading(true);
+			try {
+				const projectData = await fetchAllProject();
+
+				setProjects(projectData);
+			} catch (error) {
+				throw new Error(error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchProjects();
+		console.log(projects);
+	}, []);
 
 	return (
 		<motion.div
@@ -91,11 +112,41 @@ function TaskManagement() {
 				</div>
 
 				<div className='management-content-container relative grid grid-cols-1 md:grid-cols-4 h-fit'>
-					<div className='left-container col-span-3 h-182 col-start-1'>
-						{projects.length > 0 ? (
-							projects.map((project) => <div key={project._id}></div>)
+					<div
+						style={{ gridTemplateRows: 'repeat(auto-fill, 200px)' }}
+						className='left-container col-span-3 grid-rows-auto grid grid-cols-1 md:grid-cols-3 gap-2 h-182 col-start-1'
+					>
+						{loading ? (
+							[...Array(6)].map((_, i) => (
+								<div
+									key={i}
+									className='animate-pulse bg-gray-800 rounded-lg h-50 p-4 space-y-3 border border-gray-700 shadow-md'
+								>
+									<div className='h-5 bg-gray-700 rounded w-3/4'></div>
+									<div className='h-4 bg-gray-700 rounded w-1/2'></div>
+									<div className='h-4 bg-gray-700 rounded w-2/3'></div>
+								</div>
+							))
+						) : projects.length > 0 ? (
+							projects.map((project) => (
+								<div key={project._id}>
+									<ProjectCard
+										title={project.title}
+										client={project.client.fullname}
+										dueDate={new Date(project.createdAt).toLocaleDateString('en-US', {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric',
+										})}
+										description={project.description}
+										status={project.status}
+									/>
+								</div>
+							))
 						) : (
-							<div className='no-project-container'>No Project Available.</div>
+							<div className='no-project-container col-span-full text-center text-gray-400'>
+								No Project Available.
+							</div>
 						)}
 					</div>
 

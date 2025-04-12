@@ -3,7 +3,7 @@ import { ClipboardList, Calendar, Timer, Users, DollarSign, Clock } from 'lucide
 
 const UserNav = {
 	freelancerSections: [
-		{ icon: <ClipboardList />, title: 'Task Management', route: '/dashboard/tasks-manager' },
+		{ icon: <ClipboardList />, title: 'Project Management', route: '/dashboard/projects-manager' },
 		{ icon: <Calendar />, title: 'Time Blocking', route: '/dashboard/calendar' },
 		{ icon: <Timer />, title: 'Time Tracker', route: '/dashboard/tracker' },
 		{ icon: <Users />, title: 'Client Manager', route: '/dashboard/clients' },

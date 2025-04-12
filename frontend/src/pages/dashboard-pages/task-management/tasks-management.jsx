@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CircleArrowLeft } from 'lucide-react';
+import { CircleArrowLeft, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { ProjectsNav } from '../../../utils/data/projects-nav';
 import { fetchAllProject } from '../../../services/project-services';
 import ProjectCard from '../../../components/task-management-components/project-card';
 
@@ -24,15 +23,6 @@ function TaskManagement() {
 	const handleCloseAdd = () => {
 		showAddModal(false);
 	};
-
-	const handleEditModal = () => console.log('Edit Clicked!');
-	const handleConfirmationModal = () => console.log('Confirmed!');
-
-	const NavigationsProject = ProjectsNav({
-		handleAddModal,
-		handleEditModal,
-		handleConfirmationModal,
-	});
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -60,7 +50,7 @@ function TaskManagement() {
 			transition={{ duration: 0.5 }}
 		>
 			<Helmet>
-				<title>Tasks Management | FreelanceFlow</title>
+				<title>Project Management | FreelanceFlow</title>
 				<link
 					rel='canonical'
 					href='https://freelancer-time-management-app.vercel.app/TaskManagement'
@@ -79,7 +69,7 @@ function TaskManagement() {
 				/>
 				<meta
 					property='og:title'
-					content='Tasks Management | FreelanceFlow'
+					content='Project Management | FreelanceFlow'
 				/>
 				<meta
 					property='og:description'
@@ -100,21 +90,34 @@ function TaskManagement() {
 			</Helmet>
 
 			<div className='task-management-container '>
-				<div className='header-container flex flex-row gap-3 items-center mb-10'>
-					<button
-						onClick={() => navigate('/dashboard/')}
-						className='back-btn text-lg text-white hover:text-blue-200 cursor-pointer'
-					>
-						<CircleArrowLeft size={28} />
-					</button>
+				<div className='header-container flex flex-row gap-3 justify-between items-center mb-10'>
+					<div className='left-side flex flex-row gap-3 items-center'>
+						<button
+							onClick={() => navigate('/dashboard/')}
+							className='back-btn text-lg text-white hover:text-blue-200 cursor-pointer'
+						>
+							<CircleArrowLeft size={28} />
+						</button>
 
-					<h1 className='text-header mt-0.5 text-3xl font-bold tracking-wider'>Task Management</h1>
+						<h1 className='text-header mt-0.5 text-3xl font-bold tracking-wider'>
+							Project Management
+						</h1>
+					</div>
+					<div className='right-side'>
+						<button
+							onClick={showAddModal}
+							className='flex items-center gap-2 px-3 py-1 pr-5 bg-blue-500 transition-all duration-250 ease-in-out hover:bg-blue-500/80 hover:shadow-2xl cursor-pointer rounded-2xl'
+						>
+							<Plus />
+							Add Project
+						</button>
+					</div>
 				</div>
 
 				<div className='management-content-container relative grid grid-cols-1 md:grid-cols-4 h-fit'>
 					<div
 						style={{ gridTemplateRows: 'repeat(auto-fill, 200px)' }}
-						className='left-container col-span-3 grid-rows-auto grid grid-cols-1 md:grid-cols-3 gap-2 h-182 col-start-1'
+						className='left-container grid-rows-auto grid grid-cols-1 md:grid-cols-4 col-span-4 gap-2 h-182 col-start-1'
 					>
 						{loading ? (
 							[...Array(6)].map((_, i) => (
@@ -148,23 +151,6 @@ function TaskManagement() {
 								No Project Available.
 							</div>
 						)}
-					</div>
-
-					<div className='right-container col-start-4 h-full border-l-1 border-l-blue-950 p-5 flex flex-col items-center'>
-						{Object.values(NavigationsProject).map((navigation) => (
-							<div
-								key={navigation.title}
-								className='navigation-container w-full cursor-pointer hover:bg-[var(--card-background-color)] flex flex-col my-2 transition-all duration-200 rounded-lg border border-[var(--card-background-color)]'
-								onClick={navigation.onClick}
-							>
-								<div className='flex flex-row justify-center items-center gap-2 py-2'>
-									<div className='text-primary'>{navigation.icon}</div>
-									<div className='w-[45%]'>
-										<h3 className='text-base font-medium text-center'>{navigation.title}</h3>
-									</div>
-								</div>
-							</div>
-						))}
 					</div>
 				</div>
 				{addModal && (

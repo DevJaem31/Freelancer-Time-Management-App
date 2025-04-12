@@ -64,7 +64,7 @@ function MainRoutes() {
 								element={<LandingPageDashboard />}
 							/>
 							<Route
-								path='tasks-manager'
+								path='projects-manager'
 								element={<TaskManagement />}
 							/>
 							<Route

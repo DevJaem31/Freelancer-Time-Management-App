@@ -10,6 +10,7 @@ function FormComponent({
 	name,
 	options = [],
 	checked,
+	multiple = false,
 	...props
 }) {
 	const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +32,7 @@ function FormComponent({
 					placeholder={placeholder}
 					value={value}
 					onChange={onChange}
-					className='w-full border border-gray-500  rounded-md p-2 outline-none'
+					className='w-full border min-h-20 border-gray-500  rounded-md p-2 outline-none'
 					{...props}
 				/>
 			) : type === 'select' ? (
@@ -39,6 +40,7 @@ function FormComponent({
 					name={name}
 					value={value}
 					onChange={onChange}
+					multiple={multiple}
 					className='w-full border border-gray-500 rounded-md p-2 outline-none text-gray-400'
 					{...props}
 				>

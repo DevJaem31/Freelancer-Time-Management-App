@@ -52,3 +52,14 @@ export const fetchUser = async () => {
 		throw error.response?.data || 'Failed to fetch user data';
 	}
 };
+
+export const fetchAllUsers = async () => {
+	try {
+		const response = await axios.get(`${apiUrl}fetch-all`, { withCredentials: true });
+
+		return response.data;
+	} catch (error) {
+		console.error('Fetch user error:', error);
+		throw error.response?.data || 'Failed to fetch user data';
+	}
+};

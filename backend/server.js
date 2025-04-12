@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const http = require('http');
 const userRoutes = require('./routes/user-routes');
 const taskRoutes = require('./routes/task-routes');
+const projectRoutes = require('./routes/project-routes');
 const cron = require('node-cron');
 const axios = require('axios');
 
@@ -55,6 +56,7 @@ app.use(
 
 app.use('/', userRoutes);
 app.use('/', taskRoutes);
+app.use('/', projectRoutes);
 
 mongoose
 	.connect(process.env.MONGO_URI)

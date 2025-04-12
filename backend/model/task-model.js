@@ -31,19 +31,12 @@ const TaskSchema = new mongoose.Schema(
 		completedAt: {
 			type: Date,
 		},
-		userId: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
-			required: true,
-		},
+
 		assignedTo: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 		},
-		client: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Client',
-		},
+
 		tags: [
 			{
 				type: String,

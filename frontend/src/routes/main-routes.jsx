@@ -19,6 +19,7 @@ const TaskManagement = React.lazy(() =>
 const LandingPageDashboard = React.lazy(() =>
 	import('../pages/dashboard-pages/landing-page-dashboard/landing-page-dashboard.jsx'),
 );
+const PageNotFound = React.lazy(() => import('../pages/additional-pages/page-not-found.jsx'));
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 import PrivateRoute from './protected-routes.jsx';
 import PublicRoute from './public-routes.jsx';
@@ -59,12 +60,16 @@ function MainRoutes() {
 							element={<DashboardPage />}
 						>
 							<Route
-								path='home'
+								index
 								element={<LandingPageDashboard />}
 							/>
 							<Route
 								path='tasks-manager'
 								element={<TaskManagement />}
+							/>
+							<Route
+								path='*'
+								element={<PageNotFound />}
 							/>
 						</Route>
 					</Route>

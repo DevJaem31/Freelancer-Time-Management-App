@@ -22,7 +22,7 @@ function LoginPage() {
 		try {
 			const response = await loginAccount({ ...formData });
 			toast.success('Login successful');
-			navigate('/dashboard');
+			navigate('/dashboard/home');
 		} catch (error) {
 			toast.error(error?.response?.data?.message || 'Login failed');
 			console.error('Login failed:', error);

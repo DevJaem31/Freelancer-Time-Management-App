@@ -10,7 +10,7 @@ function ProjectCard({ onClick, title, client, dueDate, description, status }) {
 			<div className='card-header flex flex-row justify-between mb-3 pb-1 border-b-1 border-b-blue-950'>
 				<div className='flex flex-col items-start'>
 					<h2 className='font-semibold leading-5  text-lg md:text-xl tracking-wider'>{title}</h2>
-					<p className='text-xs md:text-sm text-gray-500'>{client}</p>
+					<p className='text-xs md:text-sm text-gray-500'>Client: {client}</p>
 				</div>
 
 				<p className='md:text-sm text-xs mt-1 text-gray-200'>{dueDate}</p>

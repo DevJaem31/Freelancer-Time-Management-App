@@ -29,30 +29,16 @@ function TaskManagement() {
 	const fetchProjects = async () => {
 		setLoading(true);
 		try {
-			const projectData = await fetchAllProject();
+			const { myProjects, collaboratedProjects } = await fetchAllProject();
 
-			const userID = projectData[0]?.createdBy?._id;
-
-			const mine = [];
-			const collab = [];
-
-			projectData.forEach((project) => {
-				if (project.createdBy._id === userID) {
-					mine.push(project);
-				} else {
-					collab.push(project);
-				}
-			});
-
-			setMyProjects(mine);
-			setCollaboratedProjects(collab);
+			setMyProjects(myProjects);
+			setCollaboratedProjects(collaboratedProjects);
 		} catch {
 			toast.error('Something went wrong');
 		} finally {
 			setLoading(false);
 		}
 	};
-
 	useEffect(() => {
 		fetchProjects();
 	}, []);

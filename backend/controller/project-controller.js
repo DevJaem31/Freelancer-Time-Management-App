@@ -43,7 +43,21 @@ const getAllProjects = async (req, res) => {
 			return res.status(404).json({ message: 'No projects found' });
 		}
 
-		res.status(200).json({ projects });
+		const ownedProjects = [];
+		const collaboratedProjects = [];
+
+		projects.forEach((project) => {
+			if (project.createdBy._id.toString() === userId) {
+				ownedProjects.push(project);
+			} else {
+				collaboratedProjects.push(project);
+			}
+		});
+
+		res.status(200).json({
+			myProjects: ownedProjects,
+			collaboratedProjects: collaboratedProjects,
+		});
 	} catch (error) {
 		console.error('Error fetching projects:', error);
 		res.status(500).json({ message: 'Internal server error' });

@@ -23,9 +23,9 @@ export const fetchAllProject = async () => {
 	try {
 		const response = await axios.get(`${apiUrl}fetch-all-projects`, { withCredentials: true });
 
-		return response.data.projects;
+		return response.data;
 	} catch {
-		return [];
+		return { myProjects: [], collaboratedProjects: [] };
 	}
 };
 

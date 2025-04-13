@@ -17,7 +17,7 @@ const PublicRoute = () => {
 
 	return isAuthenticated ? (
 		<Navigate
-			to='/dashboard/home'
+			to='/dashboard/'
 			replace
 		/>
 	) : (

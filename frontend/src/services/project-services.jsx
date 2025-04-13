@@ -24,7 +24,17 @@ export const fetchAllProject = async () => {
 		const response = await axios.get(`${apiUrl}fetch-all-projects`, { withCredentials: true });
 
 		return response.data.projects;
-	} catch (error) {
+	} catch {
+		return [];
+	}
+};
+
+export const fetchProjectID = async (projectID) => {
+	try {
+		const response = await axios.get(`${apiUrl}fetch-byID/${projectID}`, { withCredentials: true });
+
+		return response.data.project;
+	} catch {
 		return [];
 	}
 };

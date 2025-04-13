@@ -76,7 +76,7 @@ const DashboardPage = () => {
 					content='FreelanceFlow'
 				/>
 			</Helmet>
-			<div className='dashboard-header-container flex flex-row justify-between shadow-blue-950 mb-5 w-full h-fit'>
+			<div className='dashboard-header-container flex flex-row justify-between mb-5 w-full h-fit border-b-1 pb-3'>
 				<div className='greeting-text-container'>
 					<h1 className='greeting-header-text text-base md:text-lg lg:text-3xl font-semibold tracking-wider'>
 						Welcome <strong className='text-blue-500'>{user?.fullname}</strong> !

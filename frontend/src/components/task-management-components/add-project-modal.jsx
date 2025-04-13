@@ -5,14 +5,14 @@ import { fetchAllUsers } from '../../services/user-services';
 import FormComponent from '../reusable-components/form-component';
 import { createProject } from '../../services/project-services';
 
-function AddProjectModal({ onClose }) {
+function AddProjectModal({ onClose, onRefresh }) {
 	const [formData, setFormData] = useState({
 		title: '',
 		description: '',
 		client: '',
 		dueDate: '',
 		collaborators: [],
-		status: 'not-started',
+		status: 'Not Started',
 	});
 
 	const [clients, setClients] = useState([]);
@@ -59,6 +59,7 @@ function AddProjectModal({ onClose }) {
 			await createProject(formData);
 
 			toast.success('Project Created!');
+			onRefresh();
 			onClose();
 		} catch (error) {
 			toast.error('Failed to create account, please try again.');

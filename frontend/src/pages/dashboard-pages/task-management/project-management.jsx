@@ -25,22 +25,26 @@ function TaskManagement() {
 		showAddModal(false);
 	};
 
+	const fetchProjects = async () => {
+		setLoading(true);
+		try {
+			const projectData = await fetchAllProject();
+
+			setProjects(projectData);
+		} catch {
+			toast.error('Something went wrong');
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	useEffect(() => {
-		const fetchProjects = async () => {
-			setLoading(true);
-			try {
-				const projectData = await fetchAllProject();
-
-				setProjects(projectData);
-			} catch (error) {
-				toast.error('Something went wrong');
-			} finally {
-				setLoading(false);
-			}
-		};
-
 		fetchProjects();
 	}, []);
+
+	const handleCardClick = (projectID) => {
+		navigate(`/dashboard/projects-manager/project/${projectID}`);
+	};
 
 	return (
 		<motion.div
@@ -90,7 +94,7 @@ function TaskManagement() {
 			</Helmet>
 
 			<div className='task-management-container '>
-				<div className='header-container flex flex-row gap-3 justify-between items-center mb-10'>
+				<div className='header-container flex flex-row gap-1 md:gap-3 justify-between items-center mb-10'>
 					<div className='left-side flex flex-row gap-3 items-center'>
 						<button
 							onClick={() => navigate('/dashboard/')}
@@ -99,16 +103,16 @@ function TaskManagement() {
 							<CircleArrowLeft size={28} />
 						</button>
 
-						<h1 className='text-header mt-0.5 text-3xl font-bold tracking-wider'>
+						<h1 className='text-header mt-0.5 text-lg md:text-3xl font-bold tracking-wider'>
 							Project Management
 						</h1>
 					</div>
 					<div className='right-side'>
 						<button
 							onClick={handleAddModal}
-							className='flex items-center gap-2 px-3 py-1 pr-5 bg-blue-500 transition-all duration-250 ease-in-out hover:bg-blue-500/80 hover:shadow-2xl cursor-pointer rounded-2xl'
+							className='flex items-center md:gap-2 px-1 md:px-3 py-1 pr-2 md:pr-5 text-sm md:text-base bg-blue-500 transition-all duration-250 ease-in-out hover:bg-blue-500/80 hover:shadow-2xl cursor-pointer rounded-2xl'
 						>
-							<Plus />
+							<Plus size={18} />
 							Add Project
 						</button>
 					</div>
@@ -117,7 +121,7 @@ function TaskManagement() {
 				<div className='management-content-container relative grid grid-cols-1 md:grid-cols-4 h-fit'>
 					<div
 						style={{ gridTemplateRows: 'repeat(auto-fill, 200px)' }}
-						className='left-container grid-rows-auto grid grid-cols-1 md:grid-cols-4 col-span-4 gap-2 h-182 col-start-1'
+						className='left-container md:gap-y-16 flex flex-col md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 col-span-4 gap-2 h-182 col-start-1'
 					>
 						{loading ? (
 							[...Array(6)].map((_, i) => (
@@ -134,6 +138,7 @@ function TaskManagement() {
 							projects.map((project) => (
 								<div key={project._id}>
 									<ProjectCard
+										onClick={() => handleCardClick(project._id)}
 										title={project.title}
 										client={project.client.fullname}
 										dueDate={new Date(project.createdAt).toLocaleDateString('en-US', {
@@ -155,7 +160,10 @@ function TaskManagement() {
 				</div>
 				{addModal && (
 					<div className='add-modal-container backdrop-blur-md absolute top-0 left-0 w-full md:flex justify-center items-center h-full z-30 bg-white/5'>
-						<AddProjectModal onClose={handleCloseAdd} />
+						<AddProjectModal
+							onClose={handleCloseAdd}
+							onRefresh={fetchProjects}
+						/>
 					</div>
 				)}
 			</div>

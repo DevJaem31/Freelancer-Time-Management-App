@@ -14,12 +14,15 @@ const PrivacyPolicyPage = React.lazy(() =>
 const LoginPage = React.lazy(() => import('../pages/auth-pages/login-page/login-page.jsx'));
 const SignupPage = React.lazy(() => import('../pages/auth-pages/signup-page/signup-page.jsx'));
 const TaskManagement = React.lazy(() =>
-	import('../pages/dashboard-pages/task-management/tasks-management.jsx'),
+	import('../pages/dashboard-pages/task-management/project-management.jsx'),
 );
 const LandingPageDashboard = React.lazy(() =>
 	import('../pages/dashboard-pages/landing-page-dashboard/landing-page-dashboard.jsx'),
 );
 const PageNotFound = React.lazy(() => import('../pages/additional-pages/page-not-found.jsx'));
+const EditProject = React.lazy(() =>
+	import('../pages/dashboard-pages/task-management/edit-project.jsx'),
+);
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 import PrivateRoute from './protected-routes.jsx';
 import PublicRoute from './public-routes.jsx';
@@ -67,6 +70,11 @@ function MainRoutes() {
 								path='projects-manager'
 								element={<TaskManagement />}
 							/>
+							<Route
+								path='projects-manager/project/:id'
+								element={<EditProject />}
+							/>
+
 							<Route
 								path='*'
 								element={<PageNotFound />}

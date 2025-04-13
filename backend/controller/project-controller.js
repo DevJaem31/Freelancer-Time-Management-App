@@ -48,4 +48,24 @@ const getAllProjects = async (req, res) => {
 	}
 };
 
-module.exports = { createProject, getAllProjects };
+const getProject = async (req, res) => {
+	try {
+		const projectID = req.params.projectID;
+
+		const project = await Project.findById(projectID)
+			.populate('client', 'fullname')
+			.populate('collaborators', 'fullname')
+			.populate('createdBy', 'fullname');
+
+		if (!project) {
+			return res.status(404).json({ message: 'Project not found' });
+		}
+
+		res.status(200).json({ project });
+	} catch (error) {
+		console.error('Error fetching project:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+module.exports = { createProject, getAllProjects, getProject };

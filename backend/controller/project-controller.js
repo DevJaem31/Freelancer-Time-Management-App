@@ -30,7 +30,9 @@ const createProject = async (req, res) => {
 
 const getAllProjects = async (req, res) => {
 	try {
-		const projects = await Project.find()
+		const userId = req.session.user?.id;
+
+		const projects = await Project.find({ createdBy: userId })
 			.populate('client', 'fullname')
 			.populate('collaborators', 'fullname')
 			.populate('createdBy', 'fullname');

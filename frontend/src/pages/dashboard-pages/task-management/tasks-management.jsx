@@ -20,10 +20,6 @@ function TaskManagement() {
 		showAddModal(true);
 	};
 
-	const handleCloseAdd = () => {
-		showAddModal(false);
-	};
-
 	useEffect(() => {
 		const fetchProjects = async () => {
 			setLoading(true);
@@ -105,7 +101,7 @@ function TaskManagement() {
 					</div>
 					<div className='right-side'>
 						<button
-							onClick={showAddModal}
+							onClick={handleAddModal}
 							className='flex items-center gap-2 px-3 py-1 pr-5 bg-blue-500 transition-all duration-250 ease-in-out hover:bg-blue-500/80 hover:shadow-2xl cursor-pointer rounded-2xl'
 						>
 							<Plus />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { CircleArrowLeft, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -28,7 +29,7 @@ function TaskManagement() {
 
 				setProjects(projectData);
 			} catch (error) {
-				throw new Error(error);
+				toast.error('Something went wrong');
 			} finally {
 				setLoading(false);
 			}

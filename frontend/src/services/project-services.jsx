@@ -26,5 +26,6 @@ export const fetchAllProject = async () => {
 		return response.data.projects;
 	} catch (error) {
 		toast.error(error.response.data.message);
+		return [];
 	}
 };

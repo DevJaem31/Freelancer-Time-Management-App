@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CircleArrowLeft } from 'lucide-react';
+import { CircleArrowLeft, Pencil, Trash2 } from 'lucide-react';
 import { fetchProjectID } from '../../../services/project-services';
+import { statusColors } from '../../../utils/data/status';
 import { toast } from 'react-hot-toast';
 
 function EditProject() {
@@ -36,20 +37,42 @@ function EditProject() {
 				</div>
 			) : (
 				<div>
-					<div className='header-container flex flex-row items center gap-2 md:text-lg'>
-						<button
-							onClick={() => navigate('/dashboard/projects-manager')}
-							className='back-btn text-lg text-white hover:text-blue-200 cursor-pointer'
-						>
-							<CircleArrowLeft size={28} />
-						</button>
+					<div className='header-container flex flex-row items center gap-2 md:text-lg justify-between'>
+						<div className='left-side  flex flex-row items center gap-2'>
+							<button
+								onClick={() => navigate('/dashboard/projects-manager')}
+								className='back-btn text-lg text-white hover:text-blue-200 cursor-pointer'
+							>
+								<CircleArrowLeft size={28} />
+							</button>
 
-						<h1 className='text-header mt-0.5 text-lg md:text-2xl font-bold tracking-wider'>
-							{project.title}
-						</h1>
+							<div className='header-column'>
+								<h1 className='text-header text-lg md:text-2xl font-bold tracking-wider'>
+									{project.title}
+								</h1>
+
+								<p className='text-xs opacity-50 mt-[-0.3rem]'>
+									Deadline:{' '}
+									{new Date(project.dueDate).toLocaleDateString('en-US', {
+										year: 'numeric',
+										month: 'long',
+										day: 'numeric',
+									})}
+								</p>
+							</div>
+						</div>
+
+						<div className='right-side flex flex-row gap-5 items-center'>
+							<button>
+								<Pencil size={20} />
+							</button>
+							<button>
+								<Trash2 size={20} />
+							</button>
+						</div>
 					</div>
 
-					<div className='main-content-container my-10 mx-15'>
+					<div className='main-content-container md:my-10 my-5 md:mx-15'>
 						<div className='section-container flex gap-5'>
 							<h2 className='label-content'>Client: </h2>
 							<p>{project.client?.fullname}</p>
@@ -75,6 +98,14 @@ function EditProject() {
 								</div>
 							</div>
 						)}
+
+						<span
+							className={`text-xs px-3 py-1 rounded-full font-medium ${
+								statusColors[project.status] || 'bg-gray-100 text-gray-600'
+							}`}
+						>
+							{project.status}
+						</span>
 					</div>
 				</div>
 			)}

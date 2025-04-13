@@ -141,7 +141,7 @@ function TaskManagement() {
 										onClick={() => handleCardClick(project._id)}
 										title={project.title}
 										client={project.client.fullname}
-										dueDate={new Date(project.createdAt).toLocaleDateString('en-US', {
+										dueDate={new Date(project.dueDate).toLocaleDateString('en-US', {
 											year: 'numeric',
 											month: 'long',
 											day: 'numeric',

@@ -21,6 +21,10 @@ function TaskManagement() {
 		showAddModal(true);
 	};
 
+	const handleCloseAdd = () => {
+		showAddModal(false);
+	};
+
 	useEffect(() => {
 		const fetchProjects = async () => {
 			setLoading(true);
@@ -36,7 +40,6 @@ function TaskManagement() {
 		};
 
 		fetchProjects();
-		console.log(projects);
 	}, []);
 
 	return (

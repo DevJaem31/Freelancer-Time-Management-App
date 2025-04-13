@@ -66,26 +66,26 @@ function EditProject() {
 							<button>
 								<Pencil size={20} />
 							</button>
-							<button>
+							<button className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'>
 								<Trash2 size={20} />
 							</button>
 						</div>
 					</div>
 
-					<div className='main-content-container md:my-10 my-5 md:mx-15'>
-						<div className='section-container flex gap-5'>
-							<h2 className='label-content'>Client: </h2>
+					<div className='main-content-container md:my-10 my-5 flex flex-col items-start gap-3 md:mx-15'>
+						<div className='section-container flex gap-3'>
+							<h2 className='label-content text-gray-500'>Client: </h2>
 							<p>{project.client?.fullname}</p>
 						</div>
 
-						<div className='section-container flex gap-5'>
-							<h2 className='label-content'>Description: </h2>
+						<div className='section-container flex md:flex-row flex-col md:gap-5 '>
+							<h2 className='label-content text-gray-500'>Description: </h2>
 							<p>{project.description}</p>
 						</div>
 
 						{project?.collaborators && project.collaborators.length > 0 && (
-							<div className='section-container flex gap-5'>
-								<h2 className='label-content'>Collaborators:</h2>
+							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
+								<h2 className='label-content text-gray-500'>Collaborators:</h2>
 								<div className='flex flex-wrap gap-2'>
 									{project.collaborators.map((collaborator) => (
 										<span

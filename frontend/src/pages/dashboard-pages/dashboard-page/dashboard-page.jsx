@@ -6,9 +6,14 @@ import { fetchUser } from '../../../services/user-services';
 import { Settings, Bell, ChevronDown } from 'lucide-react';
 import { UserNav } from '../../../utils/data/user-nav';
 
+const SettingModal = React.lazy(() =>
+	import('../../../components/task-management-components/settings-modal'),
+);
+
 const DashboardPage = () => {
 	const navigate = useNavigate();
 	const [toolsModal, setToolsModal] = useState(false);
+	const [settingsModal, setSettingsModal] = useState(false);
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
@@ -29,6 +34,10 @@ const DashboardPage = () => {
 
 	const handleShowToolsModal = () => {
 		setToolsModal((prev) => !prev);
+	};
+
+	const handleSettingModal = () => {
+		setSettingsModal((prev) => !prev);
 	};
 
 	const handleToolsClick = (route) => {
@@ -92,7 +101,10 @@ const DashboardPage = () => {
 						Tools <ChevronDown />
 					</button>
 
-					<button className='flex flex-row items-center text-sm cursor-pointer hover:text-blue-100/50 transition-all duration-250 ease-in-out'>
+					<button
+						onClick={() => handleSettingModal()}
+						className='flex flex-row items-center text-sm cursor-pointer hover:text-blue-100/50 transition-all duration-250 ease-in-out'
+					>
 						<Settings />
 					</button>
 
@@ -122,6 +134,8 @@ const DashboardPage = () => {
 					))}
 				</div>
 			)}
+
+			{settingsModal && <SettingModal />}
 		</div>
 	);
 };

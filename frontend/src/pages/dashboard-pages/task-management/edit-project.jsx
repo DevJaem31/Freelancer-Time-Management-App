@@ -73,32 +73,33 @@ function EditProject() {
 					</div>
 
 					<div className='main-content-container md:my-10 my-5 flex flex-col items-start gap-3 md:mx-15'>
-						<div className='section-container flex gap-3'>
-							<h2 className='label-content text-gray-500'>Client: </h2>
-							<p>{project.client?.fullname}</p>
-						</div>
-
-						<div className='section-container flex md:flex-row flex-col md:gap-5 '>
-							<h2 className='label-content text-gray-500'>Description: </h2>
-							<p>{project.description}</p>
-						</div>
-
-						{project?.collaborators && project.collaborators.length > 0 && (
-							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
-								<h2 className='label-content text-gray-500'>Collaborators:</h2>
-								<div className='flex flex-wrap gap-2'>
-									{project.collaborators.map((collaborator) => (
-										<span
-											key={collaborator._id}
-											className='bg-indigo-600/10 text-indigo-300 px-2 py-1 rounded-md text-sm'
-										>
-											{collaborator.fullname}
-										</span>
-									))}
-								</div>
+						<div className='project-details-container flex flex-col gap-1'>
+							<div className='section-container flex gap-3'>
+								<h2 className='label-content text-gray-500'>Client: </h2>
+								<p>{project.client?.fullname}</p>
 							</div>
-						)}
 
+							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
+								<h2 className='label-content text-gray-500'>Description: </h2>
+								<p>{project.description}</p>
+							</div>
+
+							{project?.collaborators && project.collaborators.length > 0 && (
+								<div className='section-container flex md:flex-row flex-col md:gap-5 '>
+									<h2 className='label-content text-gray-500'>Collaborators:</h2>
+									<div className='flex flex-wrap gap-2'>
+										{project.collaborators.map((collaborator) => (
+											<span
+												key={collaborator._id}
+												className='bg-indigo-600/10 text-indigo-300 px-2 py-1 rounded-md text-sm'
+											>
+												{collaborator.fullname}
+											</span>
+										))}
+									</div>
+								</div>
+							)}
+						</div>
 						<span
 							className={`text-xs px-3 py-1 rounded-full font-medium ${
 								statusColors[project.status] || 'bg-gray-100 text-gray-600'

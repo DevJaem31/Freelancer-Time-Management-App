@@ -36,8 +36,7 @@ export const checkAuth = async () => {
 	try {
 		await axios.get(`${apiUrl}check-session`, { withCredentials: true });
 		return true;
-	} catch (error) {
-		console.error('Session error:', error);
+	} catch {
 		return false;
 	}
 };
@@ -61,5 +60,22 @@ export const fetchAllUsers = async () => {
 	} catch (error) {
 		console.error('Fetch user error:', error);
 		throw error.response?.data || 'Failed to fetch user data';
+	}
+};
+
+export const logoutAccount = async () => {
+	try {
+		const response = await axios.get(`${apiUrl}logout-user`, {
+			withCredentials: true,
+		});
+		return response.data;
+	} catch (error) {
+		if (error.response) {
+			console.error('Logout error:', error.response.data);
+			throw error.response?.data || 'Logout failed';
+		} else {
+			console.error('Network error or no response:', error.message);
+			throw error.message || 'Network error';
+		}
 	}
 };

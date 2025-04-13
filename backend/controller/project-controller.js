@@ -32,7 +32,9 @@ const getAllProjects = async (req, res) => {
 	try {
 		const userId = req.session.user?.id;
 
-		const projects = await Project.find({ createdBy: userId } || { collaborators: userId })
+		const projects = await Project.find({
+			$or: [{ createdBy: userId }, { collaborators: userId }],
+		})
 			.populate('client', 'fullname')
 			.populate('collaborators', 'fullname')
 			.populate('createdBy', 'fullname');

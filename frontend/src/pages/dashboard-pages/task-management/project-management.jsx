@@ -14,7 +14,8 @@ const AddProjectModal = React.lazy(() =>
 function TaskManagement() {
 	const navigate = useNavigate();
 	const [addModal, showAddModal] = useState(false);
-	const [projects, setProjects] = useState([]);
+	const [myProjects, setMyProjects] = useState([]);
+	const [collaboratedProjects, setCollaboratedProjects] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const handleAddModal = () => {
@@ -30,7 +31,21 @@ function TaskManagement() {
 		try {
 			const projectData = await fetchAllProject();
 
-			setProjects(projectData);
+			const userID = projectData[0]?.createdBy?._id;
+
+			const mine = [];
+			const collab = [];
+
+			projectData.forEach((project) => {
+				if (project.createdBy._id === userID) {
+					mine.push(project);
+				} else {
+					collab.push(project);
+				}
+			});
+
+			setMyProjects(mine);
+			setCollaboratedProjects(collab);
 		} catch {
 			toast.error('Something went wrong');
 		} finally {
@@ -118,10 +133,11 @@ function TaskManagement() {
 					</div>
 				</div>
 
-				<div className='management-content-container relative grid grid-cols-1 md:grid-cols-4 h-fit'>
+				<div className='management-content-container relative h-fit'>
+					<h1 className='mb-5 font-bold text-lg md:text-2xl'>My Own Projects</h1>
 					<div
 						style={{ gridTemplateRows: 'repeat(auto-fill, 200px)' }}
-						className='left-container md:gap-y-16 flex flex-col md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 col-span-4 gap-2 h-182 col-start-1'
+						className='left-container md:gap-y-16 flex flex-col md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 col-span-4 gap-2 h-fit mb-15 col-start-1'
 					>
 						{loading ? (
 							[...Array(6)].map((_, i) => (
@@ -134,8 +150,8 @@ function TaskManagement() {
 									<div className='h-4 bg-gray-700 rounded w-2/3'></div>
 								</div>
 							))
-						) : projects.length > 0 ? (
-							projects.map((project) => (
+						) : myProjects.length > 0 ? (
+							myProjects.map((project) => (
 								<div key={project._id}>
 									<ProjectCard
 										onClick={() => handleCardClick(project._id)}
@@ -153,7 +169,47 @@ function TaskManagement() {
 							))
 						) : (
 							<div className='no-project-container col-span-full text-center text-gray-400'>
-								No Project Available.
+								No Own Project Available.
+							</div>
+						)}
+					</div>
+
+					<h1 className='mb-5 font-bold text-lg md:text-2xl'>Collaborated Projects</h1>
+					<div
+						style={{ gridTemplateRows: 'repeat(auto-fill, 200px)' }}
+						className='left-container md:gap-y-16 flex flex-col md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 col-span-4 gap-2 h-182 col-start-1'
+					>
+						{loading ? (
+							[...Array(6)].map((_, i) => (
+								<div
+									key={i}
+									className='animate-pulse bg-gray-800 rounded-lg h-50 p-4 space-y-3 border border-gray-700 shadow-md'
+								>
+									<div className='h-5 bg-gray-700 rounded w-3/4'></div>
+									<div className='h-4 bg-gray-700 rounded w-1/2'></div>
+									<div className='h-4 bg-gray-700 rounded w-2/3'></div>
+								</div>
+							))
+						) : collaboratedProjects.length > 0 ? (
+							collaboratedProjects.map((project) => (
+								<div key={project._id}>
+									<ProjectCard
+										onClick={() => handleCardClick(project._id)}
+										title={project.title}
+										client={project.client.fullname}
+										dueDate={new Date(project.dueDate).toLocaleDateString('en-US', {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric',
+										})}
+										description={project.description}
+										status={project.status}
+									/>
+								</div>
+							))
+						) : (
+							<div className='no-project-container col-span-full text-center text-gray-400'>
+								No Collaborated Project Available.
 							</div>
 						)}
 					</div>

@@ -39,6 +39,7 @@ function TaskManagement() {
 			setLoading(false);
 		}
 	};
+
 	useEffect(() => {
 		fetchProjects();
 	}, []);

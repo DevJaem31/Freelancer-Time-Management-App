@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './dashboard-page.css';
 import { Helmet } from 'react-helmet';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { fetchUser } from '../../../services/user-services';
@@ -36,7 +37,7 @@ const DashboardPage = () => {
 	};
 
 	return (
-		<div className='md:py-6 md:px-35 px-5 py-5 w-full min-h-screen relative'>
+		<div className='md:py-6 md:px-35 px-5 py-5 w-full min-h-[85vh] relative'>
 			<Helmet>
 				<title>Dashboard | FreelanceFlow</title>
 				<link
@@ -101,7 +102,9 @@ const DashboardPage = () => {
 				</div>
 			</div>
 
-			<Outlet />
+			<div className='container-for-scroll h-[85vh] overflow-scroll'>
+				<Outlet />
+			</div>
 
 			{toolsModal && (
 				<div className='bg-[var(--card-accent-color)] p-6 rounded-lg shadow-2xl w-[350px] absolute top-15 md:right-55'>

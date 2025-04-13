@@ -107,6 +107,8 @@ function EditProject() {
 							{project.status}
 						</span>
 					</div>
+
+					<div className='tasks-cards-container'></div>
 				</div>
 			)}
 		</>

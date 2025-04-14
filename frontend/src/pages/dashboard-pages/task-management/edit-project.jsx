@@ -40,17 +40,21 @@ function EditProject() {
 			setLoading(true);
 			try {
 				const projectData = await fetchProjectID(id);
-
 				setProject(projectData);
-			} catch {
-				toast.error('Project not found');
+			} catch (error) {
+				if (error.response?.status === 403) {
+					navigate('/dashboard/access-denied');
+				} else {
+					toast.error('Something went wrong');
+				}
 			} finally {
 				setLoading(false);
 			}
 		};
+
 		fetchProject();
 		getTasks();
-	}, [id]);
+	}, [id, navigate]);
 
 	const handleTaskModal = () => {
 		showAddTask(true);

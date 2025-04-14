@@ -1,5 +1,15 @@
 const Project = require('../model/project-model');
 
+const isAuthorized = async (userId, projectId) => {
+	const project = await Project.findById(projectId);
+	if (!project || !project.createdBy) return false;
+
+	return (
+		project.createdBy.toString() === userId ||
+		project.collaborators.map((id) => id.toString()).includes(userId)
+	);
+};
+
 const createProject = async (req, res) => {
 	try {
 		const { title, description, client, dueDate, collaborators, status } = req.body;
@@ -66,16 +76,17 @@ const getAllProjects = async (req, res) => {
 
 const getProject = async (req, res) => {
 	try {
+		const userId = req.session.user?.id;
 		const projectID = req.params.projectID;
+
+		if (!(await isAuthorized(userId, projectID))) {
+			return res.status(403).json({ error: 'You are not authorized to access this project' });
+		}
 
 		const project = await Project.findById(projectID)
 			.populate('client', 'fullname')
 			.populate('collaborators', 'fullname')
 			.populate('createdBy', 'fullname');
-
-		if (!project) {
-			return res.status(404).json({ message: 'Project not found' });
-		}
 
 		res.status(200).json({ project });
 	} catch (error) {

@@ -30,11 +30,8 @@ export const fetchAllProject = async () => {
 };
 
 export const fetchProjectID = async (projectID) => {
-	try {
-		const response = await axios.get(`${apiUrl}fetch-byID/${projectID}`, { withCredentials: true });
-
-		return response.data.project;
-	} catch {
-		return [];
-	}
+	const response = await axios.get(`${apiUrl}fetch-byID/${projectID}`, {
+		withCredentials: true,
+	});
+	return response.data.project;
 };

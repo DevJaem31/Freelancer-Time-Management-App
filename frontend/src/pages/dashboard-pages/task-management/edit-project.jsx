@@ -2,14 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CircleArrowLeft, Pencil, Trash2 } from 'lucide-react';
 import { fetchProjectID } from '../../../services/project-services';
+import { fetchProjectTasks } from '../../../services/task-services';
 import { statusColors } from '../../../utils/data/status';
 import { toast } from 'react-hot-toast';
 
+const AddTaskModal = React.lazy(() =>
+	import('../../../components/task-management-components/add-task-modal'),
+);
+import TasksContainer from '../../../components/task-management-components/tasks';
+
 function EditProject() {
 	const [project, setProject] = useState([]);
+	const [tasks, setTasks] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [addTask, showAddTask] = useState(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
+
+	const getTasks = async () => {
+		setLoading(true);
+		try {
+			if (!id) {
+				toast.error('Failed to fetch the project ID');
+			}
+
+			const taskData = await fetchProjectTasks(id);
+			setTasks(taskData);
+		} catch (error) {
+			toast.error(error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	useEffect(() => {
 		const fetchProject = async () => {
@@ -25,7 +49,16 @@ function EditProject() {
 			}
 		};
 		fetchProject();
+		getTasks();
 	}, [id]);
+
+	const handleTaskModal = () => {
+		showAddTask(true);
+	};
+
+	const handleCloseTask = () => {
+		showAddTask(false);
+	};
 
 	return (
 		<>
@@ -79,6 +112,11 @@ function EditProject() {
 								<p>{project.client?.fullname}</p>
 							</div>
 
+							<div className='section-container flex gap-3'>
+								<h2 className='label-content text-gray-500'>Project Head: </h2>
+								<p>{project.createdBy?.fullname}</p>
+							</div>
+
 							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
 								<h2 className='label-content text-gray-500'>Description: </h2>
 								<p>{project.description}</p>
@@ -109,7 +147,22 @@ function EditProject() {
 						</span>
 					</div>
 
-					<div className='tasks-cards-container'></div>
+					<div className='tasks-cards-container'>
+						<TasksContainer
+							tasks={tasks}
+							loading={loading}
+							onClick={handleTaskModal}
+						/>
+					</div>
+				</div>
+			)}
+
+			{addTask && (
+				<div className='task-container backdrop-blur-md absolute top-0 left-0 w-full md:flex justify-center items-center h-full z-30 bg-white/5'>
+					<AddTaskModal
+						onClose={handleCloseTask}
+						getTasks={getTasks}
+					/>
 				</div>
 			)}
 		</>

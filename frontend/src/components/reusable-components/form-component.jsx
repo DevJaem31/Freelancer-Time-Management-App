@@ -47,7 +47,6 @@ function FormComponent({
 					<option
 						className='text-gray-650 bg-gray-600'
 						value=''
-						disabled
 					>
 						Select {label}
 					</option>

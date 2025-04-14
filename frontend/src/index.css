@@ -17,6 +17,13 @@ body {
 	color: var(--text-color);
 	font-size: 18px;
 	font-family: 'Inter';
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+	display: none;
 }
 
 ::-webkit-scrollbar {

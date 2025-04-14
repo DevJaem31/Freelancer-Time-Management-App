@@ -39,6 +39,7 @@ function AddProjectModal({ onClose, onRefresh }) {
 		};
 		getUsers();
 	}, []);
+
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -154,7 +155,10 @@ function AddProjectModal({ onClose, onRefresh }) {
 						/>
 					</div>
 
-					<button className='bg-white/80 text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-250 ease-in-out w-full md:py-3 py-2 cursor-pointer mt-2 rounded-lg md:text-lg text-base'>
+					<button
+						className='bg-white/80 text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-250 ease-in-out w-full md:py-3 py-2 cursor-pointer mt-2 rounded-lg md:text-lg text-base'
+						type='submit'
+					>
 						Create Project
 					</button>
 				</form>

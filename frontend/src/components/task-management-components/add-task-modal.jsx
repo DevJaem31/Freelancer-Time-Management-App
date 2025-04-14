@@ -110,7 +110,7 @@ function AddTaskModal({ onClose, getTasks }) {
 						onChange={handleChange}
 					/>
 
-					<div className='flex flex-row gap-5 items-center'>
+					<div className='md:flex md:flex-row md:gap-5 md:items-center'>
 						<FormComponent
 							label='Due Date:'
 							type='date'
@@ -144,7 +144,7 @@ function AddTaskModal({ onClose, getTasks }) {
 						onChange={handleChange}
 					/>
 
-					<div className='flex flex-row gap-5 items-center'>
+					<div className='md:flex md:flex-row md:gap-5 md:items-center'>
 						<FormComponent
 							label='Priority:'
 							type='select'

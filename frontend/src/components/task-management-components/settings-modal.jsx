@@ -17,7 +17,7 @@ function SettingModal() {
 	};
 
 	return (
-		<div className='bg-[var(--card-accent-color)] p-6 rounded-lg shadow-2xl w-[15rem] absolute top-15 md:right-43'>
+		<div className='bg-[var(--card-accent-color)] p-6 rounded-lg shadow-2xl w-[15rem] absolute top-15 right-15 md:right-43'>
 			<h2 className='text-xl font-semibold mb-4 text-white border-b-1'>Settings</h2>
 
 			<div className='mb-3'>

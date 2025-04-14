@@ -35,3 +35,19 @@ export const fetchProjectID = async (projectID) => {
 	});
 	return response.data.project;
 };
+
+export const editProjectbyID = async (projectID, formData) => {
+	const response = await axios.patch(`${apiUrl}edit-project/${projectID}`, formData, {
+		withCredentials: true,
+	});
+
+	return response.data;
+};
+
+export const archiveProject = async (projectID) => {
+	const response = await axios.post(`${apiUrl}archive-project/${projectID}`, {
+		withCredentials: true,
+	});
+
+	return response.data;
+};

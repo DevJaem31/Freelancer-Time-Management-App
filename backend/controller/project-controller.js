@@ -1,4 +1,5 @@
 const Project = require('../model/project-model');
+const ArchiveProject = require('../model/archive-project-model');
 
 const isAuthorized = async (userId, projectId) => {
 	const project = await Project.findById(projectId);
@@ -95,4 +96,54 @@ const getProject = async (req, res) => {
 	}
 };
 
-module.exports = { createProject, getAllProjects, getProject };
+const editProject = async (req, res) => {
+	const { projectID } = req.params;
+	const updateBody = req.body;
+
+	try {
+		const updatedProject = await Project.findByIdAndUpdate(projectID, updateBody, {
+			new: true,
+			runValidators: true,
+		});
+
+		if (!updatedProject) {
+			return res.status(404).json({ message: 'Project not found' });
+		}
+
+		res.status(200).json(updatedProject);
+	} catch (error) {
+		console.error('Error editing project:', error);
+		res.status(500).json({ message: 'Server error', error });
+	}
+};
+
+const archiveProject = async (req, res) => {
+	const { projectID } = req.params;
+	try {
+		const project = await Project.findById(projectID);
+		if (!project) {
+			return res.status(404).json({ message: 'Project not found' });
+		}
+
+		const archivedProject = new ArchiveProject({
+			title: project.title,
+			description: project.description,
+			client: project.client,
+			dueDate: project.dueDate,
+			tasks: project.tasks,
+			collaborators: project.collaborators,
+			status: project.status,
+			createdBy: project.createdBy,
+		});
+
+		await archivedProject.save();
+
+		await Project.findByIdAndDelete(projectID);
+		return res.status(200).json({ message: 'Project archived successfully', archivedProject });
+	} catch (error) {
+		console.error('Error archiving project:', error);
+		return res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+module.exports = { createProject, getAllProjects, getProject, editProject, archiveProject };

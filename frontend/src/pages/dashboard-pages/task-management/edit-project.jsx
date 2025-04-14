@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CircleArrowLeft, Pencil, Trash2 } from 'lucide-react';
-import { fetchProjectID } from '../../../services/project-services';
+import { CircleArrowLeft, Pencil, Trash2, Save } from 'lucide-react';
+import { fetchAllUsers } from '../../../services/user-services';
+import {
+	fetchProjectID,
+	editProjectbyID,
+	archiveProject,
+} from '../../../services/project-services';
 import { fetchProjectTasks } from '../../../services/task-services';
 import { statusColors } from '../../../utils/data/status';
 import { toast } from 'react-hot-toast';
@@ -9,15 +14,29 @@ import { toast } from 'react-hot-toast';
 const AddTaskModal = React.lazy(() =>
 	import('../../../components/task-management-components/add-task-modal'),
 );
+const ConfirmationModal = React.lazy(() =>
+	import('../../../components/reusable-components/confirmation-modal'),
+);
 import TasksContainer from '../../../components/task-management-components/tasks';
+import FormComponent from '../../../components/reusable-components/form-component';
 
 function EditProject() {
+	const [editState, setEditState] = useState(false);
 	const [project, setProject] = useState([]);
 	const [tasks, setTasks] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [addTask, showAddTask] = useState(false);
+	const [confirmation, showConfirmation] = useState(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
+
+	const [formData, setFormData] = useState({
+		description: '',
+		client: '',
+		dueDate: '',
+		collaborators: [],
+		status: 'Not Started',
+	});
 
 	const getTasks = async () => {
 		setLoading(true);
@@ -35,23 +54,93 @@ function EditProject() {
 		}
 	};
 
+	const [clients, setClients] = useState([]);
+	const [users, setUsers] = useState([]);
+
+	const filterUsersByRole = (users, role) => {
+		if (!Array.isArray(users)) return [];
+		return users.filter((user) => user.role === role);
+	};
+
+	const handleArchiveProject = () => {
+		showConfirmation(true);
+	};
+
 	useEffect(() => {
-		const fetchProject = async () => {
-			setLoading(true);
+		const getUsers = async () => {
 			try {
-				const projectData = await fetchProjectID(id);
-				setProject(projectData);
+				const allUsers = await fetchAllUsers();
+
+				const freelancers = filterUsersByRole(allUsers, 'freelancer');
+				const clientsOnly = filterUsersByRole(allUsers, 'client');
+
+				setUsers(freelancers);
+				setClients(clientsOnly);
 			} catch (error) {
-				if (error.response?.status === 403) {
-					navigate('/dashboard/access-denied');
-				} else {
-					toast.error('Something went wrong');
-				}
-			} finally {
-				setLoading(false);
+				console.error('Error fetching user:', error);
 			}
 		};
+		getUsers();
+	}, []);
 
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prevData) => ({ ...prevData, [name]: value }));
+	};
+
+	const handleMultiSelect = (e) => {
+		const options = Array.from(e.target.selectedOptions, (option) => option.value);
+		setFormData((prev) => ({
+			...prev,
+			collaborators: options,
+		}));
+	};
+
+	const handleEditState = () => {
+		setEditState((prev) => !prev);
+	};
+
+	const handleSave = async () => {
+		try {
+			setLoading(true);
+
+			await editProjectbyID(id, formData);
+			toast.success('Project updated successfully');
+			fetchProject();
+			setEditState(false);
+		} catch {
+			toast.error('Error saving the project');
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const fetchProject = async () => {
+		setLoading(true);
+		try {
+			const projectData = await fetchProjectID(id);
+			setProject(projectData);
+
+			setFormData({
+				title: projectData.title || '',
+				description: projectData.description || '',
+				client: projectData.client?._id || '',
+				dueDate: projectData.dueDate || '',
+				collaborators: projectData.collaborators?.map((c) => c._id) || [],
+				status: projectData.status || 'Not Started',
+			});
+		} catch (error) {
+			if (error.response?.status === 403) {
+				navigate('/dashboard/access-denied');
+			} else {
+				toast.error('Something went wrong');
+			}
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
 		fetchProject();
 		getTasks();
 	}, [id, navigate]);
@@ -62,6 +151,22 @@ function EditProject() {
 
 	const handleCloseTask = () => {
 		showAddTask(false);
+	};
+
+	const handleCloseConfirmation = () => {
+		showConfirmation(false);
+	};
+
+	const archiveTheProject = async () => {
+		try {
+			await archiveProject(id);
+
+			navigate('/dashboard/projects-manager');
+			showConfirmation(false);
+			toast.success('Successfully Archived!');
+		} catch {
+			toast.success('Error Archiving');
+		}
 	};
 
 	return (
@@ -88,32 +193,72 @@ function EditProject() {
 									{project.title}
 								</h1>
 
-								<p className='text-xs opacity-50 mt-[-0.3rem]'>
-									Deadline:{' '}
-									{new Date(project.dueDate).toLocaleDateString('en-US', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric',
-									})}
-								</p>
+								{editState ? (
+									<>
+										<p className='text-xs opacity-50 mt-[-0.3rem]'>Deadline: </p>
+										<FormComponent
+											type='date'
+											value={formData.dueDate ? formData.dueDate.split('T')[0] : ''}
+											name='dueDate'
+											onChange={handleInputChange}
+											min={new Date().toISOString().split('T')[0]}
+										/>
+									</>
+								) : (
+									<p className='text-xs opacity-50 mt-[-0.3rem]'>
+										Deadline:{' '}
+										{new Date(project.dueDate).toLocaleDateString('en-US', {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric',
+										})}
+									</p>
+								)}
 							</div>
 						</div>
 
 						<div className='right-side flex flex-row gap-5 items-center'>
-							<button>
+							<button onClick={() => handleEditState()}>
 								<Pencil size={20} />
 							</button>
-							<button className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'>
+
+							{editState && (
+								<button
+									onClick={handleSave}
+									className='text-green-600 cursor-pointer'
+								>
+									<Save size={20} />
+								</button>
+							)}
+							<button
+								onClick={() => handleArchiveProject()}
+								className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'
+							>
 								<Trash2 size={20} />
 							</button>
 						</div>
 					</div>
 
-					<div className='main-content-container md:my-10 my-5 flex flex-col items-start gap-3 md:mx-15'>
-						<div className='project-details-container flex flex-col gap-1'>
+					<div className='main-content-container md:my-10 w-full my-5 flex flex-col items-start gap-3 md:mx-15'>
+						<div className='project-details-container flex w-full md:w-[80%] flex-col gap-1'>
 							<div className='section-container flex gap-3'>
 								<h2 className='label-content text-gray-500'>Client: </h2>
-								<p>{project.client?.fullname}</p>
+								{editState ? (
+									<FormComponent
+										type='select'
+										value={formData.client}
+										name='client'
+										options={[
+											...clients.map((client) => ({
+												label: client.fullname,
+												value: client._id,
+											})),
+										]}
+										onChange={handleInputChange}
+									/>
+								) : (
+									<p>{project.client?.fullname}</p>
+								)}
 							</div>
 
 							<div className='section-container flex gap-3'>
@@ -123,32 +268,78 @@ function EditProject() {
 
 							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
 								<h2 className='label-content text-gray-500'>Description: </h2>
-								<p>{project.description}</p>
+								{editState ? (
+									<FormComponent
+										type='textarea'
+										name='description'
+										value={formData.description}
+										onChange={handleInputChange}
+										placeholder='Write a short description of the project...'
+									/>
+								) : (
+									<p>{project.description}</p>
+								)}
 							</div>
 
-							{project?.collaborators && project.collaborators.length > 0 && (
-								<div className='section-container flex md:flex-row flex-col md:gap-5 '>
-									<h2 className='label-content text-gray-500'>Collaborators:</h2>
-									<div className='flex flex-wrap gap-2'>
-										{project.collaborators.map((collaborator) => (
-											<span
-												key={collaborator._id}
-												className='bg-indigo-600/10 text-indigo-300 px-2 py-1 rounded-md text-sm'
-											>
-												{collaborator.fullname}
-											</span>
-										))}
-									</div>
-								</div>
+							{editState ? (
+								<FormComponent
+									multiple
+									type='select'
+									label='Collaborators:'
+									value={formData.collaborators}
+									name='collaborators'
+									options={[
+										...users.map((user) => ({
+											label: user.fullname,
+											value: user._id,
+										})),
+									]}
+									onChange={handleMultiSelect}
+								/>
+							) : (
+								<>
+									{project?.collaborators && project.collaborators.length > 0 && (
+										<div className='section-container flex md:flex-row flex-col md:gap-5 '>
+											<h2 className='label-content text-gray-500'>Collaborators:</h2>
+											<div className='flex flex-wrap gap-2'>
+												{project.collaborators.map((collaborator) => (
+													<span
+														key={collaborator._id}
+														className='bg-indigo-600/10 text-indigo-300 px-2 py-1 rounded-md text-sm'
+													>
+														{collaborator.fullname}
+													</span>
+												))}
+											</div>
+										</div>
+									)}
+								</>
+							)}
+
+							{editState ? (
+								<FormComponent
+									type='select'
+									label='Status:'
+									value={formData.status}
+									name='status'
+									options={[
+										{ label: 'Not Started', value: 'Not Started' },
+										{ label: 'In Progress', value: 'In Progress' },
+										{ label: 'Completed', value: 'Completed' },
+										{ label: 'On Hold', value: 'On Hold' },
+									]}
+									onChange={handleInputChange}
+								/>
+							) : (
+								<span
+									className={`text-xs px-3 py-1 rounded-full w-fit font-medium ${
+										statusColors[project.status] || 'bg-gray-100 text-gray-600'
+									}`}
+								>
+									{project.status}
+								</span>
 							)}
 						</div>
-						<span
-							className={`text-xs px-3 py-1 rounded-full font-medium ${
-								statusColors[project.status] || 'bg-gray-100 text-gray-600'
-							}`}
-						>
-							{project.status}
-						</span>
 					</div>
 
 					<div className='tasks-cards-container'>
@@ -166,8 +357,16 @@ function EditProject() {
 					<AddTaskModal
 						onClose={handleCloseTask}
 						getTasks={getTasks}
+						project={project}
 					/>
 				</div>
+			)}
+
+			{confirmation && (
+				<ConfirmationModal
+					onArchive={archiveTheProject}
+					onClose={handleCloseConfirmation}
+				/>
 			)}
 		</>
 	);

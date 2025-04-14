@@ -1,4 +1,5 @@
 const TaskModel = require('../model/task-model');
+const Project = require('../model/project-model');
 
 const CreateTask = async (req, res) => {
 	try {
@@ -32,7 +33,12 @@ const CreateTask = async (req, res) => {
 			priority: priority || 'Medium',
 			status: status || 'Not Started',
 		});
+
 		await newTask.save();
+
+		await Project.findByIdAndUpdate(projectID, {
+			$push: { tasks: newTask._id },
+		});
 
 		res.status(201).json({ message: 'Task created successfully', task: newTask });
 	} catch (error) {

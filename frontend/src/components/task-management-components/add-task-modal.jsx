@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { addTask } from '../../services/task-services';
 import toast from 'react-hot-toast';
 
-function AddTaskModal({ onClose, getTasks }) {
+function AddTaskModal({ onClose, getTasks, project }) {
 	const { id } = useParams();
 	const [users, setUsers] = useState([]);
 	const [taskData, setTaskData] = useState({
@@ -33,19 +33,25 @@ function AddTaskModal({ onClose, getTasks }) {
 	};
 
 	useEffect(() => {
+		if (!project) return;
+
 		const getUsers = async () => {
 			try {
 				const allUsers = await fetchAllUsers();
-
 				const freelancers = filterUsersByRole(allUsers, 'freelancer');
 
-				setUsers(freelancers);
+				const projectCollaborators = project.collaborators.map((c) => c._id || c);
+				const collaboratorsOnly = freelancers.filter((user) =>
+					projectCollaborators.includes(user._id),
+				);
+
+				setUsers(collaboratorsOnly);
 			} catch (error) {
 				console.error('Error fetching user:', error);
 			}
 		};
 		getUsers();
-	}, []);
+	}, [project]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -53,6 +59,10 @@ function AddTaskModal({ onClose, getTasks }) {
 			const formattedTaskData = {
 				...taskData,
 				dueDate: new Date(taskData.dueDate),
+				tags: taskData.tags
+					.split(',')
+					.map((tag) => tag.trim())
+					.filter(Boolean),
 				startedAt: taskData.startedAt ? new Date(taskData.startedAt) : null,
 				completedAt: taskData.completedAt ? new Date(taskData.completedAt) : null,
 				assignedTo: taskData.assignedTo || null,

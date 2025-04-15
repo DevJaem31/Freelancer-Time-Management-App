@@ -1,4 +1,6 @@
-# Freelancers-Time-Management-App
+![image](https://github.com/user-attachments/assets/052b16bb-45eb-4912-93c7-9ea03a722eac)
+
+<h1 align="center">Freelancers-Time-Management-App</h1>
 
 A MERN-stack productivity app designed for freelancers to manage time, clients, projects, tasks, invoices, and budgeting — all in one place.
 

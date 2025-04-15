@@ -11,6 +11,13 @@ const isAuthorized = async (userId, projectId) => {
 	);
 };
 
+const isOwner = async (userId, projectId) => {
+	const project = await Project.findById(projectId);
+	if (!project || !project.createdBy) return false;
+
+	return project.createdBy.toString() === userId;
+};
+
 const createProject = async (req, res) => {
 	try {
 		const { title, description, client, dueDate, collaborators, status } = req.body;
@@ -98,9 +105,14 @@ const getProject = async (req, res) => {
 
 const editProject = async (req, res) => {
 	const { projectID } = req.params;
+	const userId = req.session.user?.id;
 	const updateBody = req.body;
 
 	try {
+		if (!(await isOwner(userId, projectID))) {
+			return res.status(403).json({ error: 'You are not authorized to access this project' });
+		}
+
 		const updatedProject = await Project.findByIdAndUpdate(projectID, updateBody, {
 			new: true,
 			runValidators: true,
@@ -119,7 +131,13 @@ const editProject = async (req, res) => {
 
 const archiveProject = async (req, res) => {
 	const { projectID } = req.params;
+	const userId = req.session.user?.id;
+
 	try {
+		if (!(await isOwner(userId, projectID))) {
+			return res.status(403).json({ error: 'You are not authorized to access this project' });
+		}
+
 		const project = await Project.findById(projectID);
 		if (!project) {
 			return res.status(404).json({ message: 'Project not found' });

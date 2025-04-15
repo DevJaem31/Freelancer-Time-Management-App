@@ -108,8 +108,12 @@ function EditProject() {
 			toast.success('Project updated successfully');
 			fetchProject();
 			setEditState(false);
-		} catch {
-			toast.error('Error saving the project');
+		} catch (error) {
+			if (error.response?.status === 403) {
+				toast.error("You don't have permission to edit the project");
+			} else {
+				toast.error('Error saving the project');
+			}
 		} finally {
 			setLoading(false);
 		}
@@ -164,8 +168,12 @@ function EditProject() {
 			navigate('/dashboard/projects-manager');
 			showConfirmation(false);
 			toast.success('Successfully Archived!');
-		} catch {
-			toast.success('Error Archiving');
+		} catch (error) {
+			if (error.response?.status === 403) {
+				toast.error("You don't have permission to archive the project");
+			} else {
+				toast.error('Error archiving the project');
+			}
 		}
 	};
 
@@ -218,7 +226,7 @@ function EditProject() {
 						</div>
 
 						<div className='right-side flex flex-row gap-5 items-center'>
-							<button onClick={() => handleEditState()}>
+							<button onClick={handleEditState}>
 								<Pencil size={20} />
 							</button>
 
@@ -230,8 +238,9 @@ function EditProject() {
 									<Save size={20} />
 								</button>
 							)}
+
 							<button
-								onClick={() => handleArchiveProject()}
+								onClick={handleArchiveProject}
 								className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'
 							>
 								<Trash2 size={20} />

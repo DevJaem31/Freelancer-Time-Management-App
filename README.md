@@ -73,4 +73,5 @@
   <strong>Reminders & Notifications:</strong> Push alerts for due tasks<br>
   <strong>Data Portability:</strong> Export/import projects and logs<br>
   <strong>Analytics:</strong> Dashboard for time and budget insights
+  <strong>Messaging:</strong> Live messaging for client and freelancer
 </p>

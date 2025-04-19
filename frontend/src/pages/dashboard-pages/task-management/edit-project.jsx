@@ -46,7 +46,14 @@ function EditProject() {
 			}
 
 			const taskData = await fetchProjectTasks(id);
-			setTasks(taskData);
+
+			const sortedTasks = [...taskData].sort((a, b) => {
+				const dateA = new Date(a.dueDate);
+				const dateB = new Date(b.dueDate);
+				return dateA - dateB;
+			});
+
+			setTasks(sortedTasks);
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -197,7 +204,7 @@ function EditProject() {
 							</button>
 
 							<div className='header-column'>
-								<h1 className='text-header text-lg md:text-2xl font-bold tracking-wider'>
+								<h1 className='text-header text-lg md:text-2xl font-bold leading-4.5 mb-1 md:leading-0 md:mb-0 tracking-wider'>
 									{project.title}
 								</h1>
 

@@ -31,8 +31,20 @@ function TaskManagement() {
 		try {
 			const { myProjects, collaboratedProjects } = await fetchAllProject();
 
-			setMyProjects(myProjects);
-			setCollaboratedProjects(collaboratedProjects);
+			const sortedMyProjects = [...myProjects].sort((a, b) => {
+				const dateA = new Date(a.dueDate);
+				const dateB = new Date(b.dueDate);
+				return dateA - dateB;
+			});
+
+			const sortedCollaboratedProjects = [...collaboratedProjects].sort((a, b) => {
+				const dateA = new Date(a.dueDate);
+				const dateB = new Date(b.dueDate);
+				return dateA - dateB;
+			});
+
+			setMyProjects(sortedMyProjects);
+			setCollaboratedProjects(sortedCollaboratedProjects);
 		} catch {
 			toast.error('Something went wrong');
 		} finally {

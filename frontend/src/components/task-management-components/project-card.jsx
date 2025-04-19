@@ -8,8 +8,8 @@ function ProjectCard({ onClick, title, client, dueDate, description, status }) {
 			className='card-component-container bg-[var(--card-accent-color)] rounded-lg p-4 flex-col justify-between cursor-pointer hover:shadow-md shadow-blue-100/10 md:min-h-[15rem]'
 		>
 			<div className='card-header flex flex-row justify-between mb-3 pb-1 border-b-1 border-b-blue-950'>
-				<div className='flex flex-col items-start'>
-					<h2 className='font-semibold leading-5  text-lg md:text-xl tracking-wider'>{title}</h2>
+				<div className='flex flex-col md:w-fit w-[70%] items-start'>
+					<h2 className='font-semibold text-lg leading-4.5 md:text-xl tracking-wider'>{title}</h2>
 					<p className='text-xs md:text-sm text-gray-500'>Client: {client}</p>
 				</div>
 

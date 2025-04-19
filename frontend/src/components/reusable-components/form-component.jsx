@@ -19,9 +19,9 @@ function FormComponent({
 	const inputType = isPassword && showPassword ? 'text' : type;
 
 	return (
-		<div className='form-component-container mb-4 w-full'>
+		<div className='form-component-container mb-2 md:mb-4 w-full'>
 			{label && (
-				<label className='block text-base md:text-lg font-semibold tracking-wider md:tracking-none mb-1'>
+				<label className='block text-sm md:text-base xl:text-lg font-semibold tracking-wider md:tracking-none mb-1'>
 					{label}
 				</label>
 			)}
@@ -32,7 +32,7 @@ function FormComponent({
 					placeholder={placeholder}
 					value={value}
 					onChange={onChange}
-					className='w-full border min-h-20 border-gray-500  rounded-md p-2 outline-none'
+					className='w-full border min-h-10 text-sm md:text-base md:min-h-20 border-gray-500 rounded-md p-2 outline-none'
 					{...props}
 				/>
 			) : type === 'select' ? (
@@ -41,11 +41,11 @@ function FormComponent({
 					value={value}
 					onChange={onChange}
 					multiple={multiple}
-					className='w-full border border-gray-500 rounded-md p-2 outline-none text-gray-400'
+					className='w-full border md:text-base text-sm xl:text-lg  border-gray-500 rounded-md p-2 outline-none text-gray-400'
 					{...props}
 				>
 					<option
-						className='text-gray-650 bg-gray-600'
+						className='text-gray-650 md:text-base text-sm xl:text-lg  bg-gray-600'
 						value=''
 					>
 						Select {label}
@@ -54,7 +54,7 @@ function FormComponent({
 						<option
 							key={opt.value}
 							value={opt.value}
-							className='text-white bg-gray-600'
+							className='text-white md:text-base text-sm xl:text-lg  bg-gray-600'
 						>
 							{opt.label}
 						</option>
@@ -65,7 +65,7 @@ function FormComponent({
 					{options.map((opt) => (
 						<label
 							key={opt.value}
-							className='flex items-center gap-2 outline-none'
+							className='flex items-center md:text-base text-sm xl:text-lg gap-2 outline-none'
 						>
 							<input
 								type='radio'
@@ -80,7 +80,7 @@ function FormComponent({
 					))}
 				</div>
 			) : type === 'checkbox' ? (
-				<label className='flex items-center gap-2 outline-none'>
+				<label className='flex items-center md:text-base text-sm xl:text-lg gap-2 outline-none'>
 					<input
 						type='checkbox'
 						name={name}
@@ -98,13 +98,13 @@ function FormComponent({
 						placeholder={placeholder}
 						value={value}
 						onChange={onChange}
-						className='w-full border border-gray-500 rounded-md p-2 pr-10 outline-none'
+						className='w-full border md:text-base text-sm xl:text-lg border-gray-500 rounded-md p-2 pr-10 outline-none'
 						{...props}
 					/>
 					<button
 						type='button'
 						onClick={() => setShowPassword((prev) => !prev)}
-						className='absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400'
+						className='absolute cursor-pointer md:text-base text-sm xl:text-lg right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400'
 						tabIndex={-1}
 					>
 						{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -117,7 +117,7 @@ function FormComponent({
 					placeholder={placeholder}
 					value={value}
 					onChange={onChange}
-					className='w-full border border-gray-500  rounded-md p-2 outline-none'
+					className='w-full border border-gray-500 md:text-base text-sm xl:text-lg rounded-md p-2 outline-none'
 					{...props}
 				/>
 			)}

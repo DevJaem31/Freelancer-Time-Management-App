@@ -34,10 +34,12 @@ const DashboardPage = () => {
 
 	const handleShowToolsModal = () => {
 		setToolsModal((prev) => !prev);
+		setSettingsModal(false);
 	};
 
 	const handleSettingModal = () => {
 		setSettingsModal((prev) => !prev);
+		setToolsModal(false);
 	};
 
 	const handleToolsClick = (route) => {

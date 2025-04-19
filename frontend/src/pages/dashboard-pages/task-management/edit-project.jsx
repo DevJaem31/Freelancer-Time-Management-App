@@ -226,7 +226,11 @@ function EditProject() {
 						</div>
 
 						<div className='right-side flex flex-row gap-5 items-center'>
-							<button onClick={handleEditState}>
+							<button
+								className='cursor-pointer'
+								onClick={handleEditState}
+								title='Edit Button'
+							>
 								<Pencil size={20} />
 							</button>
 
@@ -234,6 +238,7 @@ function EditProject() {
 								<button
 									onClick={handleSave}
 									className='text-green-600 cursor-pointer'
+									title='Save Button'
 								>
 									<Save size={20} />
 								</button>
@@ -241,6 +246,7 @@ function EditProject() {
 
 							<button
 								onClick={handleArchiveProject}
+								title='Archive Button'
 								className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'
 							>
 								<Trash2 size={20} />
@@ -250,8 +256,10 @@ function EditProject() {
 
 					<div className='main-content-container md:my-10 w-full my-5 flex flex-col items-start gap-3 md:mx-15'>
 						<div className='project-details-container flex w-full md:w-[80%] flex-col gap-1'>
-							<div className='section-container flex gap-3'>
-								<h2 className='label-content text-gray-500'>Client: </h2>
+							<div className='section-container flex gap-1 md:gap-3'>
+								<h2 className='label-content text-sm md:text-base xl:text-lg text-gray-500'>
+									Client:{' '}
+								</h2>
 								{editState ? (
 									<FormComponent
 										type='select'
@@ -266,17 +274,21 @@ function EditProject() {
 										onChange={handleInputChange}
 									/>
 								) : (
-									<p>{project.client?.fullname}</p>
+									<p className='text-sm md:text-base xl:text-lg'>{project.client?.fullname}</p>
 								)}
 							</div>
 
-							<div className='section-container flex gap-3'>
-								<h2 className='label-content text-gray-500'>Project Head: </h2>
-								<p>{project.createdBy?.fullname}</p>
+							<div className='section-container flex gap-1 md:gap-3'>
+								<h2 className='label-content text-gray-500 text-sm md:text-base xl:text-lg'>
+									Project Head:{' '}
+								</h2>
+								<p className='text-sm md:text-base xl:text-lg'>{project.createdBy?.fullname}</p>
 							</div>
 
 							<div className='section-container flex md:flex-row flex-col md:gap-5 '>
-								<h2 className='label-content text-gray-500'>Description: </h2>
+								<h2 className='label-content text-sm md:text-base xl:text-lg text-gray-500'>
+									Description:{' '}
+								</h2>
 								{editState ? (
 									<FormComponent
 										type='textarea'
@@ -286,7 +298,7 @@ function EditProject() {
 										placeholder='Write a short description of the project...'
 									/>
 								) : (
-									<p>{project.description}</p>
+									<p className='text-sm md:text-base xl:text-lg'>{project.description}</p>
 								)}
 							</div>
 
@@ -309,12 +321,14 @@ function EditProject() {
 								<>
 									{project?.collaborators && project.collaborators.length > 0 && (
 										<div className='section-container flex md:flex-row flex-col md:gap-5 '>
-											<h2 className='label-content text-gray-500'>Collaborators:</h2>
+											<h2 className='label-content text-sm md:text-base xl:text-lg text-gray-500'>
+												Collaborators:
+											</h2>
 											<div className='flex flex-wrap gap-2'>
 												{project.collaborators.map((collaborator) => (
 													<span
 														key={collaborator._id}
-														className='bg-indigo-600/10 text-indigo-300 px-2 py-1 rounded-md text-sm'
+														className='bg-indigo-600/10 md:text-base xl:text-lg text-indigo-300 px-2 py-1 rounded-md text-sm'
 													>
 														{collaborator.fullname}
 													</span>
@@ -341,7 +355,7 @@ function EditProject() {
 								/>
 							) : (
 								<span
-									className={`text-xs px-3 py-1 rounded-full w-fit font-medium ${
+									className={`text-xs px-3 md:text-base xl:text-lg py-1 rounded-full w-fit font-medium ${
 										statusColors[project.status] || 'bg-gray-100 text-gray-600'
 									}`}
 								>

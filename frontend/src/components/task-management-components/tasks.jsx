@@ -6,10 +6,10 @@ function TasksContainer({ tasks, onClick, loading }) {
 	return (
 		<div className='task-container w-[92.5%] m-auto border-t-1 border-blue-950 pt-5'>
 			<div className='header-task-container flex flex-row items-center mb-2 justify-between'>
-				<h1 className='tasks-header-text text-2xl font-black'>TASKS</h1>
+				<h1 className='tasks-header-text text-base md:text-lg xl:text-2xl font-black'>TASKS</h1>
 				<button
 					onClick={onClick}
-					className='bg-blue-300 px-3 py-1 hover:bg-blue-500 transition-all duration-250 ease-out cursor-pointer flex items-center gap-2 rounded-3xl'
+					className='bg-blue-300 text-sm md:text-base xl:text-lg px-3 py-1 hover:bg-blue-500 transition-all duration-250 ease-out cursor-pointer flex items-center gap-0.5 md:gap-2 rounded-3xl'
 				>
 					<Plus size={20} /> Add Task
 				</button>

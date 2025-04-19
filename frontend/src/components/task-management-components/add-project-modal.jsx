@@ -70,7 +70,7 @@ function AddProjectModal({ onClose, onRefresh }) {
 
 	return (
 		<div className='md:w-[50%] md:h-[80%] h-screen w-screen bg-[var(--background-color)] shadow-2xl rounded-lg p-2 md:p-6'>
-			<div className='header-add-modal flex flex-row gap-3 mb-5 items-center'>
+			<div className='header-add-modal flex flex-row gap-3 mb-5 items-center md:pt-0 md:pb-0 pt-10 pb-10'>
 				<button
 					className='text-white hover:text-blue-200 cursor-pointer'
 					onClick={onClose}
@@ -82,7 +82,10 @@ function AddProjectModal({ onClose, onRefresh }) {
 			</div>
 
 			<div className='form-container'>
-				<form onSubmit={handleSubmit}>
+				<form
+					onSubmit={handleSubmit}
+					className='flex flex-col'
+				>
 					<FormComponent
 						type='text'
 						label='Project Title:'

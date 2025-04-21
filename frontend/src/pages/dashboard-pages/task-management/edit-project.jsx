@@ -204,7 +204,7 @@ function EditProject() {
 							</button>
 
 							<div className='header-column'>
-								<h1 className='text-header text-lg md:text-2xl font-bold leading-4.5 mb-1 md:leading-0 md:mb-0 tracking-wider'>
+								<h1 className='text-header text-lg md:text-2xl font-bold leading-4.5 mb-1 md:leading-10.5 md:mb-0 tracking-wider'>
 									{project.title}
 								</h1>
 
@@ -362,7 +362,7 @@ function EditProject() {
 								/>
 							) : (
 								<span
-									className={`text-xs px-3 md:text-base xl:text-lg py-1 rounded-full w-fit font-medium ${
+									className={`text-xs px-3 md:text-sm xl:text-base py-.5 rounded-full w-fit font-medium ${
 										statusColors[project.status] || 'bg-gray-100 text-gray-600'
 									}`}
 								>

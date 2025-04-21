@@ -23,6 +23,9 @@ const PageNotFound = React.lazy(() => import('../pages/additional-pages/page-not
 const EditProject = React.lazy(() =>
 	import('../pages/dashboard-pages/task-management/edit-project.jsx'),
 );
+const EditTasks = React.lazy(() =>
+	import('../pages/dashboard-pages/task-management/edit-tasks.jsx'),
+);
 import LandingPage from '../pages/landing-page/landing-page.jsx';
 import PrivateRoute from './protected-routes.jsx';
 import PublicRoute from './public-routes.jsx';
@@ -73,6 +76,11 @@ function MainRoutes() {
 							<Route
 								path='projects-manager/project/:id'
 								element={<EditProject />}
+							/>
+
+							<Route
+								path='projects-manager/tasks/:taskID'
+								element={<EditTasks />}
 							/>
 
 							<Route

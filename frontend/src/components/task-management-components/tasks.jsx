@@ -1,8 +1,16 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
+
 import TaskCard from './task-card';
+import { useNavigate } from 'react-router-dom';
 
 function TasksContainer({ tasks, onClick, loading }) {
+	const navigate = useNavigate();
+
+	const handleCardClick = (tasksID) => {
+		navigate(`/dashboard/projects-manager/tasks/${tasksID}`);
+	};
+
 	return (
 		<div className='task-container w-[92.5%] m-auto border-t-1 border-blue-950 pt-5'>
 			<div className='header-task-container flex flex-row items-center mb-2 justify-between'>
@@ -41,6 +49,7 @@ function TasksContainer({ tasks, onClick, loading }) {
 								description={task.description}
 								status={task.status}
 								priority={task.priority}
+								onClick={() => handleCardClick(task._id)}
 							/>
 						</div>
 					))

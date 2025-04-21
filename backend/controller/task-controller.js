@@ -66,4 +66,21 @@ const fetchProjectTask = async (req, res) => {
 	}
 };
 
-module.exports = { CreateTask, fetchProjectTask };
+const fetchTaskByID = async (req, res) => {
+	try {
+		const { tasksID } = req.params;
+
+		if (!tasksID) {
+			return res.status(404).json({ message: 'No tasks found' });
+		}
+
+		const Tasks = await TaskModel.findById(tasksID).populate('assignedTo', 'fullname');
+
+		res.status(200).json({ Tasks });
+	} catch (error) {
+		console.error('Error fetching tasks:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+module.exports = { CreateTask, fetchProjectTask, fetchTaskByID };

@@ -32,3 +32,10 @@ export const fetchProjectTasks = async (projectID) => {
 		return [];
 	}
 };
+
+export const fetchTasksbyID = async (tasksID) => {
+	const response = await axios.get(`${apiUrl}fetch-taskID/${tasksID}`, {
+		withCredentials: true,
+	});
+	return response.data.Tasks;
+};

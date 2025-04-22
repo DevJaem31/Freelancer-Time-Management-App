@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react';
 import TaskCard from './task-card';
 import { useNavigate } from 'react-router-dom';
 
-function TasksContainer({ tasks, onClick, loading }) {
+function TasksContainer({ tasks, onClick, loading, projectID }) {
 	const navigate = useNavigate();
 
 	const handleCardClick = (tasksID) => {
@@ -40,6 +40,7 @@ function TasksContainer({ tasks, onClick, loading }) {
 						<div key={task._id}>
 							<TaskCard
 								title={task.title}
+								projectID={projectID}
 								assignedTo={task.assignedTo.fullname}
 								dueDate={new Date(task.dueDate).toLocaleDateString('en-US', {
 									year: 'numeric',

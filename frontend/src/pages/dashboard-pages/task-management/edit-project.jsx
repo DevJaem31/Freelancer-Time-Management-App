@@ -376,6 +376,7 @@ function EditProject() {
 						<TasksContainer
 							tasks={tasks}
 							loading={loading}
+							projectID={id}
 							onClick={handleTaskModal}
 						/>
 					</div>

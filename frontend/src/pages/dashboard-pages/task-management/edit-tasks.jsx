@@ -95,7 +95,28 @@ function EditTasks() {
 						</div>
 					</div>
 
-					<div className='task-edit-content'></div>
+					<div className='task-edit-content px-11 mt-10'>
+						<div className='task-content-header flex items-start justify-between'>
+							<div className='left-side'>
+								<h1 className='xl:text-2xl xl:font-black text-blue-500'>{task?.title}</h1>
+								<p className='xl:text-lg xl:font-semibold'>{task.assignedTo?.fullname}</p>
+							</div>
+
+							<div className='right-side'>
+								<p className='xl:text-base xl:font-semibold text-gray-600'>
+									{new Date(task?.dueDate).toLocaleDateString('en-US', {
+										year: 'numeric',
+										month: 'long',
+										day: 'numeric',
+									})}
+								</p>
+							</div>
+						</div>
+
+						<div className='task-content-main'>
+							<p className=''>{task?.description}</p>
+						</div>
+					</div>
 				</div>
 			)}
 		</>

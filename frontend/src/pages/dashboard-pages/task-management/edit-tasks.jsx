@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { fetchTasksbyID } from '../../../services/task-services';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CircleArrowLeft } from 'lucide-react';
+import { CircleArrowLeft, Pencil, Trash2, Save } from 'lucide-react';
 
 function EditTasks() {
 	const [task, setTask] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const { taskID } = useParams();
 	const navigate = useNavigate();
+
+	const [editState, setEditState] = useState(false);
 
 	const fetchTaskDetails = async () => {
 		setLoading(true);
@@ -30,6 +32,14 @@ function EditTasks() {
 		navigate(-1);
 	};
 
+	const handleEditState = () => {
+		setEditState((prev) => !prev);
+	};
+
+	const handleSave = () => {};
+
+	const handleArchiveProject = () => {};
+
 	return (
 		<>
 			{loading ? (
@@ -40,24 +50,52 @@ function EditTasks() {
 				</div>
 			) : (
 				<div className='w-[50%] mx-auto'>
-					<div className='header-container-tasks'>
+					<div className='header-container-tasks flex flex-row items center gap-2 md:text-lg justify-between'>
 						<div className='header-left flex flex-row gap-4 items-center'>
 							<button
-								className='cursor-pointer hover:opacity-50 mt-[-.7rem] duration-275'
+								className='cursor-pointer hover:opacity-50 duration-275'
 								onClick={handleBack}
 							>
 								<CircleArrowLeft size={30} />
 							</button>
-							<div className='title-header-left'>
-								<h1 className='m-0 p-0 font-black tracking-wider text-base md:text-lg xl:text-3xl leading-4 md:leading-5 xl:leading-6'>
-									{task.title}
+
+							<div className='header_text'>
+								<h1 className='task-title-text m-0 p-0 font-black tracking-wider text-base md:text-lg xl:text-3xl leading-4 md:leading-5 xl:leading-6'>
+									Edit Task
 								</h1>
-								<p className='owner-header-left text-gray-500 md:text-base xl:text-lg text-sm '>
-									{task.assignedTo?.fullname}
-								</p>
 							</div>
 						</div>
+
+						<div className='right-side flex flex-row gap-5 items-center'>
+							<button
+								className='cursor-pointer'
+								onClick={handleEditState}
+								title='Edit Button'
+							>
+								<Pencil size={20} />
+							</button>
+
+							{editState && (
+								<button
+									onClick={handleSave}
+									className='text-green-600 cursor-pointer'
+									title='Save Button'
+								>
+									<Save size={20} />
+								</button>
+							)}
+
+							<button
+								onClick={handleArchiveProject}
+								title='Archive Button'
+								className='text-red-800 cursor-pointer text-shadow-red-950 shadow-lg'
+							>
+								<Trash2 size={20} />
+							</button>
+						</div>
 					</div>
+
+					<div className='task-edit-content'></div>
 				</div>
 			)}
 		</>
